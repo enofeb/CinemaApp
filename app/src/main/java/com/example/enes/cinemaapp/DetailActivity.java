@@ -36,6 +36,7 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_content_detail_layout);
 
@@ -77,7 +78,7 @@ public class DetailActivity extends AppCompatActivity {
 
                     imageView.setDrawingCacheEnabled(true);
                     imageView.buildDrawingCache();
-
+                    //background
                     Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);

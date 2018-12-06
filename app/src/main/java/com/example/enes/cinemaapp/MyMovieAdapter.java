@@ -2,10 +2,6 @@ package com.example.enes.cinemaapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.storage.StorageManager;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,23 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.enes.cinemaapp.Model.Movie;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.net.URL;
 import java.util.List;
 
-public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHolder> {
+public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHolder>  {
 
     private Context context;
     private List<Movie> mList;
@@ -37,6 +25,8 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
 
     private DatabaseReference dRef= FirebaseDatabase.getInstance().getReference();
     private DatabaseReference rootRef=dRef.child("user");
+
+
 
 
     public MyMovieAdapter(Context context, List<Movie> mList) {
@@ -57,12 +47,14 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyMovieAdapter.MyViewHolder holder, int position) { //final
+    public void onBindViewHolder(MyViewHolder holder, int position) { //final
+
         holder.title.setText(mList.get(position).getTitle());
         String vote=Double.toString(mList.get(position).getVoteAverage());
         holder.userVote.setText(vote);
 
-        Glide.with(context).load(mList.get(position).getImagePath()).into(holder.image);//placeholder?
+
+        Glide.with(context).load(mList.get(position).getImagePath()).into(holder.image);
     }
 
     @Override
@@ -70,15 +62,18 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
         return mList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder  {
         public TextView title,userVote;
         public ImageView image;
+
+
 
         MyViewHolder(View view){
             super(view);
             title=view.findViewById(R.id.movie_title);
             userVote=view.findViewById(R.id.movie_rate);
             image=view.findViewById(R.id.movie_image_2);
+
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,7 +101,12 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
 
                 }
             });
+
         }
+
+
+
+
 
     }
 

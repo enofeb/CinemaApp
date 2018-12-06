@@ -12,7 +12,6 @@ import retrofit2.http.Query;
 
 public interface Service {
 
-
     //Type of MovieGetting object
     @GET("movie/popular")
     Call<MovieGetting> getPopularMovies(@Query("api_key") String apiKey);
