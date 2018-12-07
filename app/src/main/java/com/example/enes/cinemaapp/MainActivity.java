@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements MovieView.View {
         myMovieAdapter.notifyDataSetChanged();
     }
 
-    public void initView(){
+       public void initView(){
 
         recyclerView=findViewById(R.id.recycler_view);
 
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements MovieView.View {
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(myMovieAdapter);
+        recyclerView.smoothScrollToPosition(0);
 
         swipeRefreshLayout=findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_orange_dark);
