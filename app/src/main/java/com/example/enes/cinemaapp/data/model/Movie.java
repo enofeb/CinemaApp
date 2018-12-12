@@ -1,13 +1,15 @@
-package com.example.enes.cinemaapp.Model;
+package com.example.enes.cinemaapp.data.model;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Parcelable {
 
         @SerializedName("id")
         private Integer id;
@@ -57,7 +59,6 @@ public class Movie {
         this.originalTitle = originalTitle;
         this.backdropPath = backdropPath;
     }
-
 
 
     public Boolean getAdult() {
@@ -175,4 +176,56 @@ public class Movie {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(overView);
+        dest.writeString(releaseDate);
+        dest.writeInt(voteCount);
+        dest.writeString(imagePath);
+        dest.writeValue(adult);
+        dest.writeValue(video);
+        dest.writeList(genreIds);
+        dest.writeDouble(voteAverage);
+        dest.writeDouble(popularity);
+        dest.writeString(originalLanguage);
+        dest.writeString(originalTitle);
+        dest.writeString(backdropPath);
+    }
+
+    public Movie(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        overView = in.readString();
+        releaseDate = in.readString();
+        voteCount = in.readInt();
+        imagePath = in.readString();
+        adult = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        video = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        genreIds = new ArrayList<Integer>();
+        in.readList(this.genreIds,Integer.class.getClassLoader());
+        voteAverage = in.readDouble();
+        popularity = in.readDouble();
+        originalLanguage = in.readString();
+        originalTitle = in.readString();
+        backdropPath = in.readString();
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }

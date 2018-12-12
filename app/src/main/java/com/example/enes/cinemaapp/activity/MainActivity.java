@@ -1,8 +1,5 @@
-package com.example.enes.cinemaapp;
+package com.example.enes.cinemaapp.activity;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.support.multidex.MultiDex;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,15 +10,18 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.enes.cinemaapp.Model.Movie;
-import com.example.enes.cinemaapp.Model.MovieGetting;
-import com.example.enes.cinemaapp.Presenters.MoviePresenter;
-import com.example.enes.cinemaapp.View.MovieView;
+import com.example.enes.cinemaapp.BuildConfig;
+import com.example.enes.cinemaapp.movie.MoviePresenter;
+import com.example.enes.cinemaapp.R;
+import com.example.enes.cinemaapp.movie.MovieView;
+import com.example.enes.cinemaapp.activity.adapter.MyMovieAdapter;
+import com.example.enes.cinemaapp.data.model.Movie;
+import com.example.enes.cinemaapp.data.model.MovieGetting;
+import com.example.enes.cinemaapp.service.Service;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MovieView.View {
+public class MainActivity extends AppCompatActivity implements MovieView {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -40,28 +40,33 @@ public class MainActivity extends AppCompatActivity implements MovieView.View {
     //@Inject
     //Client client;
 
-    @Inject Call<MovieGetting> call;
+    //@Inject Call<MovieGetting> call;
    // @Inject Retrofit retrofit;
+
+
+    @Inject
+    Service service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //new MoviePresenter(getApplication());
+
 
         initView();
 
-        moviePresenter=new MoviePresenter(this);
-        //moviePresenter.requestDataFromServer();
+        moviePresenter=new MoviePresenter(this,service);
 
-        loadJSON();
+        moviePresenter.requestDataFromServer();
+
+       // loadJSON();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
-               // moviePresenter.requestDataFromServer();
+                moviePresenter.requestDataFromServer();
                 //loadJSON();
                 if (swipeRefreshLayout.isRefreshing()){
                     swipeRefreshLayout.setRefreshing(false);
@@ -80,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements MovieView.View {
         myMovieAdapter.notifyDataSetChanged();
     }
 
-       public void initView(){
+    public void initView(){
 
         recyclerView=findViewById(R.id.recycler_view);
 
@@ -100,10 +105,7 @@ public class MainActivity extends AppCompatActivity implements MovieView.View {
 
     }
 
-
-  /**/
-
-        private void loadJSON() {
+    private void loadJSON() {
 
         try {
 
@@ -113,7 +115,18 @@ public class MainActivity extends AppCompatActivity implements MovieView.View {
             }
 
 
-            inject();
+
+
+
+           // Client client=new Client();
+
+            //Implement our service interface( we create object from Service Interface)
+            //Get API service
+           // Service apiService=client.getClient().create(Service.class);
+
+           // ((DaggerApp)getApplication()).getAppComponent().inject(this);
+
+            Call <MovieGetting> call=service.getPopularMovies();
 
             call.enqueue(new Callback<MovieGetting>() {
                 @Override
@@ -137,13 +150,7 @@ public class MainActivity extends AppCompatActivity implements MovieView.View {
             });
 
 
-            //Client client=new Client();
 
-            //Implement our service interface( we create object from Service Interface)
-            //Get API service
-            //Service apiService=client.getClient().create(Service.class);
-
-            //Call <MovieGetting> call=client.provideApiService().getPopularMovies(BuildConfig.THE_MOVIE_DB_API_KEY);
 
 
         }catch (Exception e){
@@ -153,11 +160,5 @@ public class MainActivity extends AppCompatActivity implements MovieView.View {
 
         }
 
-
-
-        private void inject () {
-            DaggerApp app = (DaggerApp) getApplication();
-            app.getAppComponent().inject(this);
-        }
 
 }
