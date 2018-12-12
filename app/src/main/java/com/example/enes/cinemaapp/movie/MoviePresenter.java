@@ -48,7 +48,7 @@ public class MoviePresenter extends AppCompatActivity implements MovieOnGetData 
 
 
 
-            ((DaggerApp)getApplication()).getAppComponent().inject(this);
+
 
 
 
