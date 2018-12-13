@@ -27,7 +27,6 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
 
     public Context context;
     public List<Movie> mList;
-    public static String movieId;
     public Movie selectedMovie;
 
 
@@ -35,7 +34,6 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
         this.context = context;
         this.mList = mList;
     }
-
 
     @NonNull
     @Override
@@ -79,41 +77,18 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
 
                     int pos=getAdapterPosition();
 
-
-
-
                         selectedMovie=mList.get(pos);
                         Intent i=new Intent(context.getApplicationContext(),DetailActivity.class);
                         i.putExtra(DetailActivity.ARG_PARAM,selectedMovie);
-
-
-
-
-                        i.putExtra("original_title",mList.get(pos).getTitle());
-                        i.putExtra("poster_path",mList.get(pos).getImagePath());
-                        i.putExtra("overview",mList.get(pos).getOverView());
-                        i.putExtra("vote_average",Double.toString(mList.get(pos).getVoteAverage()));
-                        i.putExtra("release_date",mList.get(pos).getReleaseDate());
-
-
-
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(i);
-
-
 
                 }
             });
 
         }
 
-
-
-
-
     }
-
-
 
 }
 

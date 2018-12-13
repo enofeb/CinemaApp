@@ -26,8 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class Client {
 
-    //Singleton final class
-    //It is our API URL
+
     public  static final String BASE_URL="https://api.themoviedb.org/3/";
     public   String apiKey=BuildConfig.THE_MOVIE_DB_API_KEY;
     private Context context;
@@ -101,11 +100,5 @@ public class Client {
         }
     }
 
-
-    /*
-    @Provides
-    Call<MovieGetting> provideMovieList(Retrofit retrofit){
-        return retrofit.create(Service.class).getPopularMovies();
-    }*/
 
 }

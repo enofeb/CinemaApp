@@ -13,5 +13,4 @@ public interface Service {
     @GET("movie/popular")
     Call<MovieGetting> getPopularMovies();
 
-
 }

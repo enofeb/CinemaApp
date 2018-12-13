@@ -3,7 +3,7 @@ package com.example.enes.cinemaapp.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Movie;
+import com.example.enes.cinemaapp.data.model.Movie;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -38,7 +38,6 @@ public class DetailActivity extends AppCompatActivity {
 
     public static  String ARG_PARAM="param1";
     public  Movie movie_;
-    public String c;
 
     @BindView(R.id.movie_image) ImageView imageView;
     @BindView(R.id.movie_name) TextView movieName;
@@ -54,31 +53,13 @@ public class DetailActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        //Intent comeIntent=getIntent();
-
-        movie_=getIntent().getParcelableExtra(ARG_PARAM);
-
-        
-
-
         if(getIntent().hasExtra(ARG_PARAM)){
-
-
-
-
-
-            String nameOfMovie=getIntent().getExtras().getString("original_title");
-            String overView=getIntent().getExtras().getString("overview");
-            String vote=getIntent().getExtras().getString("vote_average");
-            String releaseDate=getIntent().getExtras().getString("release_date");
-            String image=getIntent().getExtras().getString("poster_path");
-
-            Glide.with(this).load(image).into(imageView);
-
-            movieName.setText(nameOfMovie);
-            movieOverView.setText(overView);
-            movieUserAverage.setText(vote);
-            movieReleaseDate.setText(releaseDate);
+            movie_=getIntent().getParcelableExtra(ARG_PARAM);
+            Glide.with(this).load(movie_.getImagePath()).into(imageView);
+            movieName.setText(movie_.getTitle());
+            movieOverView.setText(movie_.getOverView());
+            movieUserAverage.setText(movie_.getVoteAverage().toString());
+            movieReleaseDate.setText(movie_.getReleaseDate());
 
         }
     }

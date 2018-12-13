@@ -7,21 +7,13 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import android.util.Log;
-import android.widget.Toast;
-
-import com.example.enes.cinemaapp.BuildConfig;
-import com.example.enes.cinemaapp.movie.MoviePresenter;
+import com.example.enes.cinemaapp.dı.DaggerApp;
+import com.example.enes.cinemaapp.movie.MovieListContract;
+import com.example.enes.cinemaapp.movie.presenter.MoviePresenter;
 import com.example.enes.cinemaapp.R;
-import com.example.enes.cinemaapp.movie.MovieView;
 import com.example.enes.cinemaapp.activity.adapter.MyMovieAdapter;
 import com.example.enes.cinemaapp.data.model.Movie;
-import com.example.enes.cinemaapp.data.model.MovieGetting;
 import com.example.enes.cinemaapp.service.Service;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 import java.util.ArrayList;
@@ -29,20 +21,17 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MovieView {
+
+public class MainActivity extends AppCompatActivity implements MovieListContract.MovieView {
+
+
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private MoviePresenter moviePresenter;
     private List<Movie> moviesList;
     private MyMovieAdapter myMovieAdapter;
-
-    //@Inject
-    //Client client;
-
-    //@Inject Call<MovieGetting> call;
-   // @Inject Retrofit retrofit;
-
+    public MovieListContract.MoviePresenter presenter;
 
     @Inject
     Service service;
@@ -52,28 +41,32 @@ public class MainActivity extends AppCompatActivity implements MovieView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ((DaggerApp)getApplication()).getAppComponent().inject(this);
+
 
 
         initView();
 
-        moviePresenter=new MoviePresenter(this,service);
 
-        moviePresenter.requestDataFromServer();
 
-       // loadJSON();
+        //moviePresenter.attachView(this);
+        //moviePresenter=new MoviePresenter(service);
+
+        presenter=new MoviePresenter(service);
+        presenter.attachView(this);
+
+        presenter.requestDataFromServer();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
-                moviePresenter.requestDataFromServer();
-                //loadJSON();
+              presenter.requestDataFromServer();
+
                 if (swipeRefreshLayout.isRefreshing()){
                     swipeRefreshLayout.setRefreshing(false);
                 }
 
-
-                //Toast.makeText(MainActivity.this,"Movies Refreshed",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -104,61 +97,5 @@ public class MainActivity extends AppCompatActivity implements MovieView {
 
 
     }
-
-    private void loadJSON() {
-
-        try {
-
-            if (BuildConfig.THE_MOVIE_DB_API_KEY.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Empty API KEY", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-
-
-
-
-           // Client client=new Client();
-
-            //Implement our service interface( we create object from Service Interface)
-            //Get API service
-           // Service apiService=client.getClient().create(Service.class);
-
-           // ((DaggerApp)getApplication()).getAppComponent().inject(this);
-
-            Call <MovieGetting> call=service.getPopularMovies();
-
-            call.enqueue(new Callback<MovieGetting>() {
-                @Override
-                public void onResponse(Call<MovieGetting> call, Response<MovieGetting> response) {
-                    Log.v("RESPONSE_CALLED", "ON_RESPONSE_CALLED");
-
-                    List<Movie> movies = response.body().getResults();
-
-                    recyclerView.setAdapter(new MyMovieAdapter(getApplicationContext(), movies));
-                    recyclerView.smoothScrollToPosition(0);
-
-                    if (swipeRefreshLayout.isRefreshing()) {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<MovieGetting> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), "Empty API KEY", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
-
-
-
-        }catch (Exception e){
-
-            Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show();
-        }
-
-        }
-
 
 }
