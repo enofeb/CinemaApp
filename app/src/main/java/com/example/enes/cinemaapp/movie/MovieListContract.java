@@ -16,4 +16,5 @@ public interface MovieListContract {
     interface MovieView extends MvpView{
         void setDataToRecyclerView(List<Movie>movieArrayList);
     }
+
 }

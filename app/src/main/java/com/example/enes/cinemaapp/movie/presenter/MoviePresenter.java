@@ -7,6 +7,9 @@ import com.example.enes.cinemaapp.data.model.MovieGetting;
 import com.example.enes.cinemaapp.movie.MovieListContract;
 import com.example.enes.cinemaapp.service.Service;
 import java.util.List;
+
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

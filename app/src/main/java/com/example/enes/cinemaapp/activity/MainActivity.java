@@ -1,10 +1,13 @@
 package com.example.enes.cinemaapp.activity;
 
+import android.content.Intent;
+import android.support.annotation.CallSuper;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.enes.cinemaapp.dı.DaggerApp;
@@ -21,39 +24,33 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MovieListContract.MovieView {
 
+public class MainActivity extends BaseActivity implements MovieListContract.MovieView {
 
-
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private MoviePresenter moviePresenter;
     private List<Movie> moviesList;
     private MyMovieAdapter myMovieAdapter;
-    public MovieListContract.MoviePresenter presenter;
+    //public MovieListContract.MoviePresenter presenter;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Inject
-    Service service;
+    MoviePresenter presenter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    @CallSuper
+    protected void onViewReady(Bundle savedInstanceState, Intent intent) {
+            super.onViewReady(savedInstanceState,intent);
 
         ((DaggerApp)getApplication()).getAppComponent().inject(this);
 
-
-
         initView();
 
-
-
-        //moviePresenter.attachView(this);
-        //moviePresenter=new MoviePresenter(service);
-
-        presenter=new MoviePresenter(service);
+        //  presenter=new MoviePresenter(service);
         presenter.attachView(this);
+
 
         presenter.requestDataFromServer();
 
@@ -61,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements MovieListContract
             @Override
             public void onRefresh() {
 
-              presenter.requestDataFromServer();
+                presenter.requestDataFromServer();
 
                 if (swipeRefreshLayout.isRefreshing()){
                     swipeRefreshLayout.setRefreshing(false);
@@ -72,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements MovieListContract
 
     }
 
+
     @Override
     public void setDataToRecyclerView(List<Movie> movieArrayList) {
         moviesList.addAll(movieArrayList);
@@ -80,22 +78,22 @@ public class MainActivity extends AppCompatActivity implements MovieListContract
 
     public void initView(){
 
-        recyclerView=findViewById(R.id.recycler_view);
-
         moviesList=new ArrayList<>();
         myMovieAdapter=new MyMovieAdapter(getApplicationContext(),moviesList);
 
-
         //Each row has only one movie
-        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(myMovieAdapter);
         recyclerView.smoothScrollToPosition(0);
 
-        swipeRefreshLayout=findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_orange_dark);
 
 
     }
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
 }

@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends BaseActivity {
 
     public static  String ARG_PARAM="param1";
     public  Movie movie_;
@@ -45,13 +46,16 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.movie_release_date) TextView movieReleaseDate;
     @BindView(R.id.movie_vote_average) TextView movieUserAverage;
 
+
+    @CallSuper
+    protected void onViewReady(Bundle savedInstanceState, Intent intent) {
+        super.onViewReady(savedInstanceState,intent);
+        initView();
+
+    }
+
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.movie_content_detail_layout);
-
-        ButterKnife.bind(this);
+    protected void initView() {
 
         if(getIntent().hasExtra(ARG_PARAM)){
             movie_=getIntent().getParcelableExtra(ARG_PARAM);
@@ -62,6 +66,11 @@ public class DetailActivity extends AppCompatActivity {
             movieReleaseDate.setText(movie_.getReleaseDate());
 
         }
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.movie_content_detail_layout;
     }
 
 }
