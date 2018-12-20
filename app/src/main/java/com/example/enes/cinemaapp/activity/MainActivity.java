@@ -41,12 +41,11 @@ public class MainActivity extends BaseActivity implements MovieListContract.Movi
     MoviePresenter presenter;
 
     @CallSuper
-    protected void onViewReady(Bundle savedInstanceState, Intent intent) {
-            super.onViewReady(savedInstanceState,intent);
+    protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
 
         ((DaggerApp)getApplication()).getAppComponent().inject(this);
 
-        initView();
 
         //  presenter=new MoviePresenter(service);
         presenter.attachView(this);

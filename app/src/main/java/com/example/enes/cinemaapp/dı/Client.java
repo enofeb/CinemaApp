@@ -6,6 +6,9 @@ import com.example.enes.cinemaapp.BuildConfig;
 import com.example.enes.cinemaapp.R;
 import com.example.enes.cinemaapp.data.model.MovieGetting;
 import com.example.enes.cinemaapp.service.Service;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
+import org.intellij.lang.annotations.PrintFormat;
 
 import java.io.IOException;
 
@@ -13,6 +16,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.annotations.NonNull;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -22,6 +26,7 @@ import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 @Module
 public class Client {
@@ -38,6 +43,10 @@ public class Client {
 
     @Provides
     @Singleton
+    String provideBaseUrl(){return BASE_URL;}
+
+    @Provides
+    @Singleton
     OkHttpClient provideOkHttp(){
         OkHttpClient client=new OkHttpClient.Builder()
                 .addInterceptor(new KeyInterceptor(apiKey))
@@ -47,10 +56,11 @@ public class Client {
 
     @Provides
     @Singleton
-    Retrofit provideRetroFit(OkHttpClient client){
+    Retrofit provideRetroFit(@NonNull String baseUrl, OkHttpClient client){
 
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build();
     }
@@ -59,24 +69,6 @@ public class Client {
     Service provideService(Retrofit retrofit){
       return  retrofit.create(Service.class);
     }
-
-
-    public Service createApi(){
-
-
-        OkHttpClient client=new OkHttpClient.Builder()
-                .addInterceptor(new KeyInterceptor(apiKey))
-                .build();
-
-        Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
-
-        return retrofit.create(Service.class);
-
-    }
-
 
     public class KeyInterceptor implements Interceptor{
 

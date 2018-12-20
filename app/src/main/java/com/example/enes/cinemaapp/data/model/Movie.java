@@ -9,7 +9,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+
+
 public class Movie implements Parcelable {
+
 
         @SerializedName("id")
         private Integer id;

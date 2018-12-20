@@ -5,6 +5,8 @@ import com.example.enes.cinemaapp.movie.MvpPresenter;
 import com.example.enes.cinemaapp.movie.MvpView;
 import com.example.enes.cinemaapp.service.Service;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 public class BasePresenter<T extends MvpView> implements MvpPresenter<T> {
 
     public T view;
@@ -13,4 +15,6 @@ public class BasePresenter<T extends MvpView> implements MvpPresenter<T> {
     public void attachView(T view) {
         this.view=view;
     }
+
+
 }

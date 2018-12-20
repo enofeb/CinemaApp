@@ -15,11 +15,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
         ButterKnife.bind(this);
-        onViewReady(savedInstanceState,getIntent());
-    }
-
-    @CallSuper
-    protected void onViewReady(Bundle savedInstanceState, Intent intent) {
         initView();
     }
 

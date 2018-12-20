@@ -48,9 +48,8 @@ public class DetailActivity extends BaseActivity {
 
 
     @CallSuper
-    protected void onViewReady(Bundle savedInstanceState, Intent intent) {
-        super.onViewReady(savedInstanceState,intent);
-        initView();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
     }
 

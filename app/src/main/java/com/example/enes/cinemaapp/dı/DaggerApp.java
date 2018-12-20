@@ -15,7 +15,7 @@ public class DaggerApp extends Application {
 
     private void test(){
         appComponent=DaggerAppComponent.builder().
-               client(new Client(this)).presenterModule(new PresenterModule(this)).build();
+               client(new Client(this)).build();
     }
 
     public  AppComponent getAppComponent(){return appComponent;}

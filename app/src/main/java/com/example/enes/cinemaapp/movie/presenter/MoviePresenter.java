@@ -8,20 +8,23 @@ import com.example.enes.cinemaapp.movie.MovieListContract;
 import com.example.enes.cinemaapp.service.Service;
 import java.util.List;
 
+
+import io.reactivex.observers.DisposableObserver;
+
+
 import javax.inject.Inject;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.Observable;
 
 public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> implements MovieListContract.MoviePresenter {
 
     public Service service;
 
+    @Inject
     public MoviePresenter(Service service) {
         this.service=service;
-
     }
 
     @Override
@@ -37,22 +40,9 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
     @Override
     public void getMovieList(final MovieListContract.MoviePresenter movieListContract) {
 
-            Call <MovieGetting> call=service.getPopularMovies();
-
-            call.enqueue(new Callback<MovieGetting>() {
-                @Override
-                public void onResponse(Call<MovieGetting> call, Response<MovieGetting> response) {
-                    Log.v("RESPONSE_CALLED", "ON_RESPONSE_CALLED");
-
-                    List<Movie> movies=response.body().getResults();
-                    movieListContract.onGetData(movies);
-                }
-
-                @Override
-                public void onFailure(Call<MovieGetting> call, Throwable t) {
-                    Log.e("error", t.toString());
-                }
-            });
+            service.getPopularMovies().subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(response->{movieListContract.onGetData(response.getResults());});
 
     }
 
