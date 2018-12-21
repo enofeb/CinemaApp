@@ -1,5 +1,6 @@
 package com.example.enes.cinemaapp.dı;
 
+import com.example.enes.cinemaapp.activity.DetailActivity;
 import com.example.enes.cinemaapp.activity.MainActivity;
 
 import javax.inject.Singleton;
@@ -10,4 +11,5 @@ import dagger.Component;
 @Component(modules = {Client.class})
 public interface AppComponent {
     void inject(MainActivity mainActivity);
+    void inject(DetailActivity detailActivity);
 }

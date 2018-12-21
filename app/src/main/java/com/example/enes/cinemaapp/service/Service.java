@@ -6,6 +6,7 @@ import com.example.enes.cinemaapp.data.model.MovieGetting;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import io.reactivex.Observable;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -13,5 +14,7 @@ public interface Service {
     //Type of MovieGetting object
     @GET("movie/popular")
     Observable<MovieGetting<Movie>> getPopularMovies(@Query("page") int pageNo);
-
+    //Warning
+    @GET("movie/{movie_id}")
+    Observable<Movie> getMovieCredits(@Path("movie_id") long movieId,@Query("append_to_response") String credits);
 }

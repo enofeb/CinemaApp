@@ -44,6 +44,8 @@ public class Movie implements Parcelable {
         private String originalTitle;
         @SerializedName("backdrop_path")
         private String backdropPath;
+        @SerializedName("credits")
+        private CastGetting castGetting;
 
 
     public Movie(Integer id, String title, String overView, String releaseDate, Integer voteCount,
@@ -180,6 +182,11 @@ public class Movie implements Parcelable {
         this.imagePath = imagePath;
     }
 
+    public CastGetting getCasting(){return  castGetting;}
+
+    public void setCredits(CastGetting castGetting) {
+        this.castGetting =castGetting;
+    }
 
     @Override
     public int describeContents() {

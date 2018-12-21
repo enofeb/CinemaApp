@@ -1,15 +1,11 @@
 package com.example.enes.cinemaapp.activity;
 
-import android.content.Intent;
 import android.support.annotation.CallSuper;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.LinearLayout;
 
 import com.example.enes.cinemaapp.dı.DaggerApp;
 import com.example.enes.cinemaapp.movie.MovieListContract;
@@ -17,7 +13,6 @@ import com.example.enes.cinemaapp.movie.presenter.MoviePresenter;
 import com.example.enes.cinemaapp.R;
 import com.example.enes.cinemaapp.activity.adapter.MyMovieAdapter;
 import com.example.enes.cinemaapp.data.model.Movie;
-import com.example.enes.cinemaapp.service.Service;
 
 
 import java.util.ArrayList;
@@ -26,7 +21,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class MainActivity extends BaseActivity implements MovieListContract.MovieView {

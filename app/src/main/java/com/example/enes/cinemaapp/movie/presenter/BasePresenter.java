@@ -1,11 +1,7 @@
 package com.example.enes.cinemaapp.movie.presenter;
 
-import com.example.enes.cinemaapp.movie.MovieListContract;
 import com.example.enes.cinemaapp.movie.MvpPresenter;
 import com.example.enes.cinemaapp.movie.MvpView;
-import com.example.enes.cinemaapp.service.Service;
-
-import io.reactivex.disposables.CompositeDisposable;
 
 public class BasePresenter<T extends MvpView> implements MvpPresenter<T> {
 

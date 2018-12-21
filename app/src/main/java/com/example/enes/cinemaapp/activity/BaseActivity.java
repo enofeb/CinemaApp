@@ -20,7 +20,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getContentView();
 
-    protected void initView(){}
+    protected void initView(){
+    }
 
     protected void endlessRecyclerView(){}
 

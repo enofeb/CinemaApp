@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBlack"
     android:layout_height="match_parent">
 
@@ -22,19 +22,13 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="5dp"
-                android:textColor="@color/colorYellow"
-                android:textSize    ="20dp"
-                android:text="Name of the movie:" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textSize="20dp"
+                android:gravity="center"
                 android:id="@+id/movie_name"
                 android:textColor="@color/colorYellow"
                 android:text="xxx"
@@ -43,9 +37,32 @@
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/colorYellow"
+                android:text="Top Casting"
+                android:layout_marginLeft="10dp"
+                android:textSize="20dp"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_cast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        </RelativeLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="126dp"
+            android:layout_height="150dp"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
@@ -54,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/colorYellow"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:text="Overview:"
                 android:textSize="20dp" />
 
@@ -80,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:text="Release Date:"
                 android:textColor="@color/colorYellow"
                 android:textSize="20dp" />
@@ -129,4 +146,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

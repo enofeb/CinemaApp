@@ -2,7 +2,6 @@ package com.example.enes.cinemaapp.dı;
 
 import android.content.Context;
 
-import com.example.enes.cinemaapp.movie.MovieListContract;
 import com.example.enes.cinemaapp.movie.presenter.MoviePresenter;
 import com.example.enes.cinemaapp.service.Service;
 
