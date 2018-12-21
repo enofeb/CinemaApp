@@ -1,5 +1,6 @@
 package com.example.enes.cinemaapp.service;
 
+import com.example.enes.cinemaapp.data.model.Movie;
 import com.example.enes.cinemaapp.data.model.MovieGetting;
 
 import retrofit2.Call;
@@ -11,6 +12,6 @@ import retrofit2.http.Query;
 public interface Service {
     //Type of MovieGetting object
     @GET("movie/popular")
-    Observable<MovieGetting> getPopularMovies();
+    Observable<MovieGetting<Movie>> getPopularMovies(@Query("page") int pageNo);
 
 }

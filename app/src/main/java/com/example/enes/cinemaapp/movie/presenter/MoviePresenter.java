@@ -28,8 +28,14 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
     }
 
     @Override
+    public void getMoreData(int pageNo) {
+        getMovieList(this, pageNo);
+    }
+
+
+    @Override
     public void requestDataFromServer() {
-      getMovieList(this);
+      getMovieList(this,1);
     }
 
     @Override
@@ -37,14 +43,16 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
         view.setDataToRecyclerView(movieList);
     }
 
-    @Override
-    public void getMovieList(final MovieListContract.MoviePresenter movieListContract) {
 
-            service.getPopularMovies().subscribeOn(Schedulers.io())
+    @Override
+    public void getMovieList(final MovieListContract.MoviePresenter movieListContract,int pageNo) {
+
+            service.getPopularMovies(pageNo).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(response->{movieListContract.onGetData(response.getResults());});
 
     }
+
 
 }
 

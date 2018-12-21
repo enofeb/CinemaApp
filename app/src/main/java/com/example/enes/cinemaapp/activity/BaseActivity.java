@@ -22,6 +22,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void initView(){}
 
+    protected void endlessRecyclerView(){}
+
 }
 
 

@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MovieGetting implements Parcelable {
+public class MovieGetting<T>  {
 
 
 
@@ -17,7 +17,7 @@ public class MovieGetting implements Parcelable {
     private int page;
 
     @SerializedName("results")
-    private List<Movie> results;
+    private List<T> results;
 
     @SerializedName("total_results")
     private int totalResults;
@@ -35,11 +35,11 @@ public class MovieGetting implements Parcelable {
         this.page = page;
     }
 
-    public List<Movie> getResults() {
+    public List<T> getResults() {
         return results;
     }
 
-    public void setResults(List<Movie> results) {
+    public void setResults(List<T> results) {
         this.results = results;
     }
 
@@ -60,38 +60,5 @@ public class MovieGetting implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.page);
-        dest.writeTypedList(this.results);
-        dest.writeInt(this.totalResults);
-        dest.writeInt(this.totalPages);
-    }
-
-    public MovieGetting() {
-    }
-
-    protected MovieGetting(Parcel in) {
-        this.page = in.readInt();
-        this.results = in.createTypedArrayList(Movie.CREATOR);
-        this.totalResults = in.readInt();
-        this.totalPages = in.readInt();
-    }
-
-    public static final Parcelable.Creator<MovieGetting> CREATOR = new Parcelable.Creator<MovieGetting>() {
-        @Override
-        public MovieGetting createFromParcel(Parcel source) {
-            return new MovieGetting(source);
-        }
-
-        @Override
-        public MovieGetting[] newArray(int size) {
-            return new MovieGetting[size];
-        }
-    };
 }
