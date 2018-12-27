@@ -11,10 +11,10 @@ import retrofit2.http.Query;
 
 
 public interface Service {
-    //Type of MovieGetting object
+
     @GET("movie/popular")
     Observable<MovieGetting<Movie>> getPopularMovies(@Query("page") int pageNo);
-    //Warning
+
     @GET("movie/{movie_id}")
     Observable<Movie> getMovieCredits(@Path("movie_id") long movieId,@Query("append_to_response") String credits);
 }

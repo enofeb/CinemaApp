@@ -24,7 +24,7 @@
                 android:layout_width="146dp"
                 android:layout_height="160dp"
                 android:background="@color/colorYellow"
-                android:scaleType="fitXY" />
+                android:contentDescription="TODO" android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/movie_title"

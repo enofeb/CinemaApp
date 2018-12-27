@@ -1,29 +1,19 @@
 package com.example.enes.cinemaapp.dı;
 
 import android.content.Context;
-
 import com.example.enes.cinemaapp.BuildConfig;
-import com.example.enes.cinemaapp.R;
-import com.example.enes.cinemaapp.data.model.MovieGetting;
 import com.example.enes.cinemaapp.service.Service;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
-import org.intellij.lang.annotations.PrintFormat;
-
 import java.io.IOException;
-
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.annotations.NonNull;
-import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;

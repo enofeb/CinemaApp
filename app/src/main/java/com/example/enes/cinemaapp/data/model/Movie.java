@@ -1,6 +1,6 @@
 package com.example.enes.cinemaapp.data.model;
 
-import android.net.Uri;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,47 +9,70 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmField;
 
 
-public class Movie implements Parcelable {
 
+public class Movie extends RealmObject implements Parcelable {
+
+
+        @PrimaryKey
+        @SerializedName("realm _id")
+        private String realId;
 
         @SerializedName("id")
         private Integer id;
+
         @SerializedName("title")
         private String title;
+
         @SerializedName("overview")
         private String overView;
+
         @SerializedName("release_date")
         private String releaseDate;
+
         @SerializedName("vote_count")
         private Integer voteCount;
+
         @SerializedName("poster_path")
         private String imagePath;
+
         @SerializedName("adult")
         private Boolean adult;
+
         @SerializedName("video")
         private Boolean video;
+
         @SerializedName("genre_ids")
-        private List<Integer>genreIds=new ArrayList<Integer>();
+        private RealmList<Integer> genreIds=new RealmList<>();
+
         @SerializedName("vote_average")
         private Double voteAverage;
+
         @SerializedName("popularity")
         private Double popularity;
+
         @SerializedName("original_language")
         private String originalLanguage;
+
         @SerializedName("original_title")
         private String originalTitle;
+
         @SerializedName("backdrop_path")
         private String backdropPath;
+
         @SerializedName("credits")
         private CastGetting castGetting;
 
+        public Movie(){}
 
     public Movie(Integer id, String title, String overView, String releaseDate, Integer voteCount,
-                 String imagePath, Boolean adult, Boolean video, List<Integer> genreIds, Double voteAverage,
+                 String imagePath, Boolean adult, Boolean video, RealmList<Integer> genreIds, Double voteAverage,
                  Double popularity, String originalLanguage, String originalTitle, String backdropPath) {
         this.id = id;
         this.title = title;
@@ -66,6 +89,15 @@ public class Movie implements Parcelable {
         this.originalTitle = originalTitle;
         this.backdropPath = backdropPath;
     }
+
+    public String getRealId() {
+        return realId;
+    }
+
+    public void setRealId(String realId) {
+        this.realId = realId;
+    }
+
 
 
     public Boolean getAdult() {
@@ -88,7 +120,7 @@ public class Movie implements Parcelable {
         return genreIds;
     }
 
-    public void setGenreIds(List<Integer> genreIds) {
+    public void setGenreIds(RealmList<Integer> genreIds) {
         this.genreIds = genreIds;
     }
 
@@ -203,7 +235,7 @@ public class Movie implements Parcelable {
         dest.writeString(imagePath);
         dest.writeValue(adult);
         dest.writeValue(video);
-        dest.writeList(genreIds);
+        //dest.writeList(genreIds);
         dest.writeDouble(voteAverage);
         dest.writeDouble(popularity);
         dest.writeString(originalLanguage);
@@ -220,7 +252,7 @@ public class Movie implements Parcelable {
         imagePath = in.readString();
         adult = (Boolean) in.readValue(Boolean.class.getClassLoader());
         video = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        genreIds = new ArrayList<Integer>();
+        //genreIds = new Rela<Integer>();
         in.readList(this.genreIds,Integer.class.getClassLoader());
         voteAverage = in.readDouble();
         popularity = in.readDouble();
