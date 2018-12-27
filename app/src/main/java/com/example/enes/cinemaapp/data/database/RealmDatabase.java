@@ -42,13 +42,12 @@ public class RealmDatabase implements IDatabase {
             realMovie.setImagePath(movie.getImagePath());
             realMovie.setAdult(movie.getAdult());
             realMovie.setVideo(movie.getVideo());
-            realMovie.setGenreIds(movie.getGenreIds());
             realMovie.setVoteAverage(movie.getVoteAverage());
             realMovie.setPopularity(movie.getPopularity());
             realMovie.setOriginalLanguage(movie.getOriginalLanguage());
             realMovie.setOriginalTitle(movie.getTitle());
             realMovie.setBackdropPath(movie.getBackdropPath());
-            realMovie.setCredits(movie.getCasting());
+            //realMovie.setCredits(movie.getCasting());
         });
         realm.close();
     }

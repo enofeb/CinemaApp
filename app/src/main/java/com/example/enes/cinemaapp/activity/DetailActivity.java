@@ -76,7 +76,7 @@ public class DetailActivity extends BaseActivity implements MovieListContract.Ca
 
     @Override
     public void setToView(Movie movie) {
-        castList.addAll(movie.getCasting().getCast());
+        //castList.addAll(movie.getCasting().getCast());
         castAdapter.notifyDataSetChanged();
     }
 

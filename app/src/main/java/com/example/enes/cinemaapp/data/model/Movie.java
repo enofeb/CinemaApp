@@ -12,12 +12,13 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmField;
 
 
 
-public class Movie extends RealmObject implements Parcelable {
+public class Movie extends RealmObject  implements Parcelable {
 
 
         @PrimaryKey
@@ -48,9 +49,6 @@ public class Movie extends RealmObject implements Parcelable {
         @SerializedName("video")
         private Boolean video;
 
-        @SerializedName("genre_ids")
-        private RealmList<Integer> genreIds=new RealmList<>();
-
         @SerializedName("vote_average")
         private Double voteAverage;
 
@@ -66,13 +64,15 @@ public class Movie extends RealmObject implements Parcelable {
         @SerializedName("backdrop_path")
         private String backdropPath;
 
-        @SerializedName("credits")
-        private CastGetting castGetting;
+
+       // @SerializedName("credits")
+       // private CastGetting castGetting;
+        //RealmResults<CastGetting> castGettings;
 
         public Movie(){}
 
-    public Movie(Integer id, String title, String overView, String releaseDate, Integer voteCount,
-                 String imagePath, Boolean adult, Boolean video, RealmList<Integer> genreIds, Double voteAverage,
+        public Movie(Integer id, String title, String overView, String releaseDate, Integer voteCount,
+                 String imagePath, Boolean adult, Boolean video, List<Integer> genreIds, Double voteAverage,
                  Double popularity, String originalLanguage, String originalTitle, String backdropPath) {
         this.id = id;
         this.title = title;
@@ -82,7 +82,7 @@ public class Movie extends RealmObject implements Parcelable {
         this.imagePath = imagePath;
         this.adult = adult;
         this.video = video;
-        this.genreIds = genreIds;
+        //this.genreIds = genreIds;
         this.voteAverage = voteAverage;
         this.popularity = popularity;
         this.originalLanguage = originalLanguage;
@@ -116,13 +116,6 @@ public class Movie extends RealmObject implements Parcelable {
         this.video = video;
     }
 
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(RealmList<Integer> genreIds) {
-        this.genreIds = genreIds;
-    }
 
     public Double getVoteAverage() {
         return voteAverage;
@@ -214,11 +207,11 @@ public class Movie extends RealmObject implements Parcelable {
         this.imagePath = imagePath;
     }
 
-    public CastGetting getCasting(){return  castGetting;}
+   // public CastGetting getCasting(){return  castGetting;}
 
-    public void setCredits(CastGetting castGetting) {
-        this.castGetting =castGetting;
-    }
+    //public void setCredits(CastGetting castGetting) {
+      //  this.castGetting =castGetting;
+    //}
 
     @Override
     public int describeContents() {
@@ -235,7 +228,6 @@ public class Movie extends RealmObject implements Parcelable {
         dest.writeString(imagePath);
         dest.writeValue(adult);
         dest.writeValue(video);
-        //dest.writeList(genreIds);
         dest.writeDouble(voteAverage);
         dest.writeDouble(popularity);
         dest.writeString(originalLanguage);
@@ -252,8 +244,6 @@ public class Movie extends RealmObject implements Parcelable {
         imagePath = in.readString();
         adult = (Boolean) in.readValue(Boolean.class.getClassLoader());
         video = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        //genreIds = new Rela<Integer>();
-        in.readList(this.genreIds,Integer.class.getClassLoader());
         voteAverage = in.readDouble();
         popularity = in.readDouble();
         originalLanguage = in.readString();
