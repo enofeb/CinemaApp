@@ -1,5 +1,4 @@
 package com.example.enes.cinemaapp.activity.adapter;
-
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -9,29 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.enes.cinemaapp.R;
 import com.example.enes.cinemaapp.activity.DetailActivity;
 import com.example.enes.cinemaapp.data.model.Movie;
-
-
-import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import static com.example.enes.cinemaapp.utils.Constants.DETAIL_VIEW;
 
 public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHolder>  {
 
-    public Context context;
-    public List<Movie> mList;
-    public Movie selectedMovie;
+    public Context mContext;
+    public List<Movie> mMovieList;
+    public Movie mSelectedMovie;
 
-
-    public MyMovieAdapter(Context context, List<Movie> mList) {
-        this.context = context;
-        this.mList = mList;
+    public MyMovieAdapter(Context context, List<Movie> movieList) {
+        this.mContext = context;
+        this.mMovieList = movieList;
     }
 
     @NonNull
@@ -39,24 +33,20 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
     public MyMovieAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.movie_layout,parent,false);
-
         return new MyViewHolder(view);
-
-
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) { //final
-
-        holder.title.setText(mList.get(position).getTitle());
-        String vote=Double.toString(mList.get(position).getVoteAverage());
+        holder.title.setText(mMovieList.get(position).getTitle());
+        String vote=Double.toString(mMovieList.get(position).getVoteAverage());
         holder.userVote.setText(vote);
-        Glide.with(context).load(mList.get(position).getImagePath()).into(holder.image);
+        Glide.with(mContext).load(mMovieList.get(position).getImagePath()).into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mMovieList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
@@ -75,20 +65,15 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
                 public void onClick(View v) {
 
                     int pos=getAdapterPosition();
-
-                        selectedMovie=mList.get(pos);
-                        Intent i=new Intent(context.getApplicationContext(),DetailActivity.class);
-                        i.putExtra(DetailActivity.ARG_PARAM,selectedMovie);
+                        mSelectedMovie=mMovieList.get(pos);
+                        Intent i=new Intent(mContext.getApplicationContext(),DetailActivity.class);
+                        i.putExtra(DETAIL_VIEW,mSelectedMovie);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(i);
-
+                        mContext.startActivity(i);
                 }
             });
-
         }
-
     }
-
 }
 
 

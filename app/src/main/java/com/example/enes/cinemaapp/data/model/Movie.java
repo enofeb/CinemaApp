@@ -1,25 +1,12 @@
 package com.example.enes.cinemaapp.data.model;
-
-
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmObject;
-import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.RealmField;
-
-
 
 public class Movie extends RealmObject  implements Parcelable {
-
 
         @PrimaryKey
         @SerializedName("realm _id")
@@ -67,6 +54,7 @@ public class Movie extends RealmObject  implements Parcelable {
 
        // @SerializedName("credits")
        // private CastGetting castGetting;
+
         //RealmResults<CastGetting> castGettings;
 
         public Movie(){}
@@ -97,8 +85,6 @@ public class Movie extends RealmObject  implements Parcelable {
     public void setRealId(String realId) {
         this.realId = realId;
     }
-
-
 
     public Boolean getAdult() {
         return adult;
@@ -156,7 +142,6 @@ public class Movie extends RealmObject  implements Parcelable {
     public void setBackdropPath(String backdropPath) {
         this.backdropPath = backdropPath;
     }
-
 
 
     public int getId() {

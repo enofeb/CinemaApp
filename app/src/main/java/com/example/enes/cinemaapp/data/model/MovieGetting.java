@@ -1,17 +1,9 @@
 package com.example.enes.cinemaapp.data.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.example.enes.cinemaapp.data.model.Movie;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class MovieGetting<T>  {
-
-
 
     @SerializedName("page")
     private int page;
@@ -24,8 +16,6 @@ public class MovieGetting<T>  {
 
     @SerializedName("total_pages")
     private int totalPages;
-
-
 
     public int getPage() {
         return page;
@@ -58,7 +48,5 @@ public class MovieGetting<T>  {
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
-
-
 
 }

@@ -3,14 +3,8 @@ package com.example.enes.cinemaapp.movie.presenter;
 import com.example.enes.cinemaapp.data.model.Movie;
 import com.example.enes.cinemaapp.movie.MovieListContract;
 import com.example.enes.cinemaapp.service.Service;
-
-import java.util.List;
-
 import javax.inject.Inject;
 import io.reactivex.functions.Consumer;
-
-
-import javax.inject.Inject;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -19,11 +13,11 @@ import static com.example.enes.cinemaapp.utils.Constants.CREDITS;
 
 public class DetailPresenter extends BasePresenter<MovieListContract.CastView> implements MovieListContract.CastPresenter {
 
-    Service service;
+    Service mService;
 
     @Inject
     public DetailPresenter(Service service) {
-        this.service=service;
+        this.mService=service;
     }
 
     @Override
@@ -33,12 +27,12 @@ public class DetailPresenter extends BasePresenter<MovieListContract.CastView> i
 
     @Override
     public void onGetCastData(Movie movie) {
-        view.setToView(movie);
+        mView.setToView(movie);
     }
 
     @Override
     public void getDetailList(final MovieListContract.CastPresenter castPresenter, int movieId) {
-        service.getMovieCredits(movieId,CREDITS).subscribeOn(Schedulers.io())
+        mService.getMovieCredits(movieId,CREDITS).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Movie>() {
                     @Override
@@ -46,6 +40,5 @@ public class DetailPresenter extends BasePresenter<MovieListContract.CastView> i
                         castPresenter.onGetCastData(movie);
                     }
                 });
-
     }
 }

@@ -1,11 +1,7 @@
 package com.example.enes.cinemaapp.activity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -20,10 +16,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getContentView();
 
-    protected void initView(){
-    }
-
-    protected void endlessRecyclerView(){}
+    protected void initView(){}
 
 }
 

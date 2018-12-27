@@ -1,13 +1,9 @@
 package com.example.enes.cinemaapp.data.database;
 
 import android.content.Context;
-
 import com.example.enes.cinemaapp.data.model.Movie;
-
 import java.util.List;
-
 import javax.inject.Singleton;
-
 import rx.Observable;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -15,18 +11,18 @@ import io.realm.RealmConfiguration;
 @Singleton
 public class RealmDatabase implements IDatabase {
 
-    private Context context;
-    private RealmConfiguration realmConfiguration;
+    private Context mContext;
+    private RealmConfiguration mRealConfiguration;
 
     public RealmDatabase(){}
 
     public RealmDatabase(Context context){
-        this.context=context;
-        Realm.init(this.context);
-        this.realmConfiguration=new RealmConfiguration.Builder()
+        this.mContext=context;
+        Realm.init(this.mContext);
+        this.mRealConfiguration=new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
                 .build();
-        Realm.setDefaultConfiguration(realmConfiguration);
+        Realm.setDefaultConfiguration(mRealConfiguration);
     }
 
     @Override

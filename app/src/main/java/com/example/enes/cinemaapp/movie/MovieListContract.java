@@ -1,11 +1,5 @@
 package com.example.enes.cinemaapp.movie;
-
-import android.view.View;
-
 import com.example.enes.cinemaapp.data.model.Movie;
-import com.example.enes.cinemaapp.movie.MvpPresenter;
-import com.example.enes.cinemaapp.movie.MvpView;
-
 import java.util.List;
 
 public interface MovieListContract {
