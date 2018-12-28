@@ -32,13 +32,9 @@ public class DetailPresenter extends BasePresenter<MovieListContract.CastView> i
 
     @Override
     public void getDetailList(final MovieListContract.CastPresenter castPresenter, int movieId) {
-        mService.getMovieCredits(movieId,CREDITS).subscribeOn(Schedulers.io())
+
+        mCompositeDisposable.add( mService.getMovieCredits(movieId,CREDITS).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Movie>() {
-                    @Override
-                    public void accept(Movie movie) throws Exception {
-                        castPresenter.onGetCastData(movie);
-                    }
-                });
+                .subscribe(movie -> castPresenter.onGetCastData(movie)));
     }
 }

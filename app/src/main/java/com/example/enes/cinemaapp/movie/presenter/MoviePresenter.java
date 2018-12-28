@@ -37,15 +37,10 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
     @Override
     public void getMovieList(final MovieListContract.MoviePresenter movieListContract,int pageNo) {
 
-        mService.getPopularMovies(pageNo).subscribeOn(Schedulers.io())
+        mCompositeDisposable.add( mService.getPopularMovies(pageNo).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<MovieGetting<Movie>>() {
-                    @Override
-                    public void accept(MovieGetting<Movie> movieMovieGetting) throws Exception {
-                        movieListContract.onGetData(movieMovieGetting.getResults());
-                    }
-                });
-                    //.subscribe(response->{movieListContract.onGetData(response.getResults());});
+                .subscribe(movie->movieListContract.onGetData(movie.getResults())));
+
     }
 }
 
