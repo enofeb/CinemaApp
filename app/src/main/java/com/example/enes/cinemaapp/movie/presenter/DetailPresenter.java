@@ -1,17 +1,17 @@
 package com.example.enes.cinemaapp.movie.presenter;
 
 import com.example.enes.cinemaapp.data.model.Movie;
-import com.example.enes.cinemaapp.movie.MovieListContract;
+import com.example.enes.cinemaapp.movie.contract.DetailContract;
 import com.example.enes.cinemaapp.service.Service;
 import javax.inject.Inject;
-import io.reactivex.functions.Consumer;
+
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 
 import static com.example.enes.cinemaapp.utils.Constants.CREDITS;
 
-public class DetailPresenter extends BasePresenter<MovieListContract.CastView> implements MovieListContract.CastPresenter {
+public class DetailPresenter extends BasePresenter<DetailContract.CastView> implements DetailContract.CastPresenter {
 
     Service mService;
 
@@ -31,7 +31,7 @@ public class DetailPresenter extends BasePresenter<MovieListContract.CastView> i
     }
 
     @Override
-    public void getDetailList(final MovieListContract.CastPresenter castPresenter, int movieId) {
+    public void getDetailList(final DetailContract.CastPresenter castPresenter, int movieId) {
 
         mCompositeDisposable.add( mService.getMovieCredits(movieId,CREDITS).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

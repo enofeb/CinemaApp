@@ -1,11 +1,10 @@
 package com.example.enes.cinemaapp.movie.presenter;
 
 import com.example.enes.cinemaapp.data.model.Movie;
-import com.example.enes.cinemaapp.data.model.MovieGetting;
-import com.example.enes.cinemaapp.movie.MovieListContract;
+import com.example.enes.cinemaapp.movie.contract.MovieListContract;
 import com.example.enes.cinemaapp.service.Service;
 import java.util.List;
-import io.reactivex.functions.Consumer;
+
 import javax.inject.Inject;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.android.schedulers.AndroidSchedulers;

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.enes.cinemaapp.R;
 import com.example.enes.cinemaapp.di.DaggerApp;
-import com.example.enes.cinemaapp.movie.MovieListContract;
+import com.example.enes.cinemaapp.movie.contract.DetailContract;
 import com.example.enes.cinemaapp.movie.presenter.DetailPresenter;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import static com.example.enes.cinemaapp.utils.Constants.DETAIL_VIEW;
 
-public class DetailActivity extends BaseActivity implements MovieListContract.CastView {
+public class DetailActivity extends BaseActivity implements DetailContract.CastView {
 
     public  Movie mMovie;
     private CastAdapter mCastAdapter;

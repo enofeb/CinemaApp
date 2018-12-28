@@ -29,21 +29,10 @@ public class RealmDatabase implements IDatabase {
     public void saveMovie(Movie movie) {
         final Realm realm=Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
+
             final Movie realMovie=realm.createObject(Movie.class,movie.getRealId());
-            realMovie.setId(movie.getId());
-            realMovie.setTitle(movie.getTitle());
-            realMovie.setOverView(movie.getOverView());
-            realMovie.setReleaseDate(movie.getReleaseDate());
-            realMovie.setVoteCount(movie.getVoteCount());
-            realMovie.setImagePath(movie.getImagePath());
-            realMovie.setAdult(movie.getAdult());
-            realMovie.setVideo(movie.getVideo());
-            realMovie.setVoteAverage(movie.getVoteAverage());
-            realMovie.setPopularity(movie.getPopularity());
-            realMovie.setOriginalLanguage(movie.getOriginalLanguage());
-            realMovie.setOriginalTitle(movie.getTitle());
-            realMovie.setBackdropPath(movie.getBackdropPath());
-            //realMovie.setCredits(movie.getCasting());
+
+            movie.fetchMovie(realMovie,movie);
         });
         realm.close();
     }

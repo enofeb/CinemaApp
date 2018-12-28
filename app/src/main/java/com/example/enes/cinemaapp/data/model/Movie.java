@@ -247,4 +247,20 @@ public class Movie extends RealmObject  implements Parcelable {
             return new Movie[size];
         }
     };
+
+    public void fetchMovie(Movie movie,Movie realMovie){
+        movie.setId(realMovie.getId());
+        movie.setTitle(realMovie.getTitle());
+        movie.setOverView(realMovie.getOverView());
+        movie.setReleaseDate(realMovie.getReleaseDate());
+        movie.setVoteCount(realMovie.getVoteCount());
+        movie.setImagePath(realMovie.getImagePath());
+        movie.setAdult(realMovie.getAdult());
+        movie.setVideo(realMovie.getVideo());
+        movie.setVoteAverage(realMovie.getVoteAverage());
+        movie.setPopularity(realMovie.getPopularity());
+        movie.setOriginalLanguage(realMovie.getOriginalLanguage());
+        movie.setOriginalTitle(realMovie.getTitle());
+        movie.setBackdropPath(realMovie.getBackdropPath());
+    }
 }

@@ -6,7 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.example.enes.cinemaapp.di.DaggerApp;
-import com.example.enes.cinemaapp.movie.MovieListContract;
+import com.example.enes.cinemaapp.movie.contract.MovieListContract;
 import com.example.enes.cinemaapp.movie.presenter.MoviePresenter;
 import com.example.enes.cinemaapp.R;
 import com.example.enes.cinemaapp.activity.adapter.MyMovieAdapter;
