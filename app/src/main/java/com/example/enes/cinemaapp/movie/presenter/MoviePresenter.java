@@ -11,7 +11,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> implements MovieListContract.MoviePresenter {
 
+
+
+
+
     public Service mService;
+
+
 
     @Inject
     public MoviePresenter(Service service) {
@@ -36,9 +42,9 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
     @Override
     public void getMovieList(final MovieListContract.MoviePresenter movieListContract,int pageNo) {
 
-        mCompositeDisposable.add( mService.getPopularMovies(pageNo).subscribeOn(Schedulers.io())
+      /*  mCompositeDisposable.add( mService.getPopularMovies(pageNo).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(movie->movieListContract.onGetData(movie.getResults())));
+                .subscribe(movie->movieListContract.onGetData(movie.getResults())));*/
 
     }
 }

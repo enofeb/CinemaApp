@@ -3,11 +3,14 @@ import com.example.enes.cinemaapp.movie.MvpPresenter;
 import com.example.enes.cinemaapp.movie.MvpView;
 
 import io.reactivex.disposables.CompositeDisposable;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 public class BasePresenter<T extends MvpView> implements MvpPresenter<T> {
 
     public T mView;
     public CompositeDisposable mCompositeDisposable;
+    public CompositeSubscription compositeSubscription;
 
     @Override
     public void attachView(T view) {
@@ -18,5 +21,11 @@ public class BasePresenter<T extends MvpView> implements MvpPresenter<T> {
     @Override
     public void detachView() {
         mCompositeDisposable.clear();
+    }
+
+    public T getView(){return mView;}
+
+    public void addSubscription(Subscription subscription){
+        compositeSubscription.add(subscription);
     }
 }

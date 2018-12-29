@@ -5,7 +5,7 @@ import com.example.enes.cinemaapp.data.model.MovieGetting;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import io.reactivex.Observable;
+import rx.Observable;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 

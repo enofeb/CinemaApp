@@ -4,6 +4,8 @@ import android.content.Context;
 import com.example.enes.cinemaapp.data.model.Movie;
 import java.util.List;
 import javax.inject.Singleton;
+
+import io.realm.RealmResults;
 import rx.Observable;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -48,5 +50,16 @@ public class RealmDatabase implements IDatabase {
     @Override
     public Observable<Movie> fetchMoviesObservable() {
         return Observable.from(fetchMovies());
+    }
+
+
+    @Override
+    public void clearMovies() {
+        final Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(transactionRealm -> {
+            RealmResults<Movie> result = transactionRealm.where(Movie.class).findAll();
+            result.deleteAllFromRealm();
+        });
+        realm.close();
     }
 }

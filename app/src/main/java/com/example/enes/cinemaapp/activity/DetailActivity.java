@@ -46,7 +46,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.CastV
 
     @Override
     public void setToView(Movie movie) {
-        //castList.addAll(movie.getCasting().getCast());
+        mCastList.addAll(movie.getCasting().getCast());
         mCastAdapter.notifyDataSetChanged();
     }
 
@@ -64,7 +64,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.CastV
             mCastAdapter=new CastAdapter(this,mCastList);
             mRecyclerView.setAdapter(mCastAdapter);
 
-            //castList.addAll(movie_.getCasting().getCast());
+
         }
     }
     @Override

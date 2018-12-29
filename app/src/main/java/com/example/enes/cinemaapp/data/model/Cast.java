@@ -2,7 +2,9 @@ package com.example.enes.cinemaapp.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Cast {
+import io.realm.RealmObject;
+
+public class Cast extends RealmObject {
 
     @SerializedName("cast_id")
     private int castId;
@@ -15,6 +17,8 @@ public class Cast {
 
     @SerializedName("profile_path")
     private String profilePath;
+
+    public Cast(){}
 
     public Cast(int castId, String character, String name, String profilePath) {
         this.castId = castId;

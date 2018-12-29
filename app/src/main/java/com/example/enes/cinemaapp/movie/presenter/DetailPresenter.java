@@ -5,9 +5,9 @@ import com.example.enes.cinemaapp.movie.contract.DetailContract;
 import com.example.enes.cinemaapp.service.Service;
 import javax.inject.Inject;
 
-import io.reactivex.schedulers.Schedulers;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.example.enes.cinemaapp.utils.Constants.CREDITS;
 
@@ -33,8 +33,8 @@ public class DetailPresenter extends BasePresenter<DetailContract.CastView> impl
     @Override
     public void getDetailList(final DetailContract.CastPresenter castPresenter, int movieId) {
 
-        mCompositeDisposable.add( mService.getMovieCredits(movieId,CREDITS).subscribeOn(Schedulers.io())
+      /*  mCompositeDisposable.add( mService.getMovieCredits(movieId,CREDITS).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(movie -> castPresenter.onGetCastData(movie)));
+                .subscribe(movie -> castPresenter.onGetCastData(movie)));*/
     }
 }

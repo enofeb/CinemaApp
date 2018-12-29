@@ -11,4 +11,6 @@ public interface IDatabase {
     List<Movie> fetchMovies();
 
     Observable<Movie> fetchMoviesObservable();
+
+    void clearMovies();
 }

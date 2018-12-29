@@ -3,7 +3,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
+
+import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 public class Movie extends RealmObject  implements Parcelable {
@@ -52,9 +55,9 @@ public class Movie extends RealmObject  implements Parcelable {
         private String backdropPath;
 
 
-       // @SerializedName("credits")
-       // private CastGetting castGetting;
-
+        @SerializedName("credits")
+        //private RealmList<Cast> castGetting;
+       private CastGetting castGetting;
         //RealmResults<CastGetting> castGettings;
 
         public Movie(){}
@@ -192,11 +195,11 @@ public class Movie extends RealmObject  implements Parcelable {
         this.imagePath = imagePath;
     }
 
-   // public CastGetting getCasting(){return  castGetting;}
+    public CastGetting getCasting(){return  castGetting;}
 
-    //public void setCredits(CastGetting castGetting) {
-      //  this.castGetting =castGetting;
-    //}
+    public void setCredits(CastGetting castGetting) {
+        this.castGetting =castGetting;
+    }
 
     @Override
     public int describeContents() {
