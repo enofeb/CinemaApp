@@ -1,5 +1,8 @@
 package com.example.enes.cinemaapp.movie.presenter;
 
+import android.support.annotation.NonNull;
+
+import com.example.enes.cinemaapp.data.DataManager;
 import com.example.enes.cinemaapp.data.model.Movie;
 import com.example.enes.cinemaapp.movie.contract.DetailContract;
 import com.example.enes.cinemaapp.service.Service;
@@ -7,18 +10,25 @@ import javax.inject.Inject;
 
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import rx.Scheduler;
+import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
 import static com.example.enes.cinemaapp.utils.Constants.CREDITS;
 
 public class DetailPresenter extends BasePresenter<DetailContract.CastView> implements DetailContract.CastPresenter {
 
-    Service mService;
+    @NonNull
+    private final DataManager mDataManager;
+    @NonNull
+    private  final Scheduler mMainScheduler,mioScheduler;
 
-    @Inject
-    public DetailPresenter(Service service) {
-        this.mService=service;
+    public DetailPresenter(@NonNull DataManager dataManager, @NonNull Scheduler mainScheduler, @NonNull Scheduler ioScheduler) {
+        this.mDataManager = dataManager;
+        this.mMainScheduler = mainScheduler;
+        this.mioScheduler = ioScheduler;
     }
+
 
     @Override
     public void requestMovieData(int movieId) {
@@ -32,6 +42,25 @@ public class DetailPresenter extends BasePresenter<DetailContract.CastView> impl
 
     @Override
     public void getDetailList(final DetailContract.CastPresenter castPresenter, int movieId) {
+
+        addSubscription(mDataManager.getCast(movieId,CREDITS).subscribeOn(mioScheduler)
+                        .observeOn(mMainScheduler).subscribe(new Subscriber<Movie>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onNext(Movie movie) {
+                                getView().setToView(movie);
+                            }
+                        }));
+
 
       /*  mCompositeDisposable.add( mService.getMovieCredits(movieId,CREDITS).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

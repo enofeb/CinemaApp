@@ -36,6 +36,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.CastV
     @BindView(R.id.recycler_view_cast) RecyclerView mRecyclerView;
 
     @Inject
+    DataManagerImp dataManagerImp;
+
     DetailPresenter mDetailPresenter;
 
     @CallSuper
@@ -44,7 +46,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.CastV
 
         ((DaggerApp)getApplication()).getAppComponent().inject(this);
 
-
+        mDetailPresenter=new DetailPresenter(dataManagerImp,Schedulers.io(),AndroidSchedulers.mainThread());
 
         mDetailPresenter.attachView(this);
         mDetailPresenter.requestMovieData(mMovie.getId());

@@ -57,7 +57,7 @@ public class Movie extends RealmObject  implements Parcelable {
 
         @SerializedName("credits")
         //private RealmList<Cast> castGetting;
-       private CastGetting castGetting;
+        private CastGetting castGetting;
         //RealmResults<CastGetting> castGettings;
 
         public Movie(){}

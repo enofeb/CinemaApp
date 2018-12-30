@@ -1,5 +1,7 @@
 package com.example.enes.cinemaapp.service;
 
+import com.example.enes.cinemaapp.data.model.Cast;
+import com.example.enes.cinemaapp.data.model.CastGetting;
 import com.example.enes.cinemaapp.data.model.Movie;
 import com.example.enes.cinemaapp.data.model.MovieGetting;
 
@@ -15,5 +17,5 @@ public interface Service {
     Observable<MovieGetting<Movie>> getPopularMovies(@Query("page") Integer pageNo);
 
     @GET("movie/{movie_id}")
-    Observable<Movie> getMovieCredits(@Path("movie_id") long movieId,@Query("append_to_response") String credits);
+    Observable<MovieGetting<Movie>> getMovieCredits(@Path("movie_id") long movieId, @Query("append_to_response") String credits);
 }

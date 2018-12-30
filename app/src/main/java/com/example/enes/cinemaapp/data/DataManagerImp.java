@@ -62,18 +62,20 @@ public class DataManagerImp implements DataManager {
     @Override
     public Observable<List<Movie>> getDatasFromLocal() {
         //Kaydolan veriler ve serviceden gelen veriler kaydedlip birleştirilyr
-        return Observable.concat(mIDatabase.fetchMoviesObservable().toList(),getMovies(null),getCast(5515,null))
+        return Observable.concat(mIDatabase.fetchMoviesObservable().toList(),getMovies(null))
                 .filter(movieList -> movieList!=null&&movieList.size()>0).first();
     }
 
     @Override
-    public Observable<List<Movie>> getCast(long movieId, String credits) {
+    public Observable<Movie> getCast(long movieId, String credits) {
 
-            Observable <Movie> movieObservable=mService.getMovieCredits(movieId,credits)
-                    .subscribeOn(Schedulers.io());
-            return  null;
-
+        Observable<Movie> castObservable= mService.getMovieCredits(movieId,credits)
+                .subscribeOn(Schedulers.io())
+                .map(movieMovieGetting -> movieMovieGetting.getResults())
+                .flatMap(movieList -> Observable.from(movieList));
+        return castObservable;
     }
+
 
     public HashMap<Long,List<Movie>> getCastCache(){return castCache;}
 

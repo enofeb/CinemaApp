@@ -19,9 +19,9 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
 
 
     @NonNull
-    private final DataManager dataManager;
+    private final DataManager mDataManager;
     @NonNull
-    private  final Scheduler mainScheduler,ioScheduler;
+    private  final Scheduler mMainScheduler,ioScheduler;
 
    // public Service mService;
     //@Inject
@@ -30,8 +30,8 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
     //}
 
     public MoviePresenter(@NonNull DataManager dataManager, Scheduler mainScheduler, Scheduler ioScheduler) {
-        this.dataManager = dataManager;
-        this.mainScheduler = mainScheduler;
+        this.mDataManager = dataManager;
+        this.mMainScheduler = mainScheduler;
         this.ioScheduler = ioScheduler;
     }
 
@@ -53,8 +53,8 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
     @Override
     public void getMovieList(final MovieListContract.MoviePresenter movieListContract,int pageNo) {
 
-        addSubscription(dataManager.getDatasFromLocal().subscribeOn(ioScheduler)
-                .observeOn(mainScheduler)
+        addSubscription(mDataManager.getDatasFromLocal().subscribeOn(ioScheduler)
+                .observeOn(mMainScheduler)
                 .subscribe(new Subscriber<List<Movie>>() {
                     @Override
                     public void onCompleted() {
