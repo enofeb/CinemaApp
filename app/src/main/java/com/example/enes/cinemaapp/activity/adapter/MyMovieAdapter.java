@@ -38,16 +38,32 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) { //final
+        final Movie movie=getItem(position);
         holder.title.setText(mMovieList.get(position).getTitle());
         String vote=Double.toString(mMovieList.get(position).getVoteAverage());
         holder.userVote.setText(vote);
-        Glide.with(mContext).load(mMovieList.get(position).getImagePath()).into(holder.image);
+
+        Glide.with(holder.image.getContext())
+                .load(movie.getImagePath()).into(holder.image);
+
+
+        //String imgUrl=mMovieList.get(position).getImagePath().replace("image.tmdb.org","10.0.2.2");
+        //Glide.with(mContext).load(imgUrl).into(holder.image);
     }
 
     @Override
     public int getItemCount() {
         return mMovieList.size();
     }
+
+    public Movie getItem(int position){
+        if(mMovieList!=null&&mMovieList.size()>0){
+            return mMovieList.get(position);
+        }
+        return null;
+    }
+
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
 
@@ -59,6 +75,7 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
             super(view);
 
             ButterKnife.bind(this,view);
+
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

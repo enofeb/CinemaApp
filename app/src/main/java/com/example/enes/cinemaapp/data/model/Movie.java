@@ -188,7 +188,7 @@ public class Movie extends RealmObject  implements Parcelable {
     }
 
     public String getImagePath() {
-        return "https://image.tmdb.org/t/p/w185"+imagePath;
+        return imagePath;
     }
 
     public void setImagePath(String imagePath) {
