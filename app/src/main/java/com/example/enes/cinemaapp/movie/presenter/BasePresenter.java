@@ -15,12 +15,15 @@ public class BasePresenter<T extends MvpView> implements MvpPresenter<T> {
     @Override
     public void attachView(T view) {
         this.mView=view;
-        mCompositeDisposable=new CompositeDisposable();
+        compositeSubscription=new CompositeSubscription();
+        //mCompositeDisposable=new CompositeDisposable();
     }
     //MemoryLeak
     @Override
     public void detachView() {
-        mCompositeDisposable.clear();
+       compositeSubscription.clear();
+       compositeSubscription=null;
+       mView=null;
     }
 
     public T getView(){return mView;}

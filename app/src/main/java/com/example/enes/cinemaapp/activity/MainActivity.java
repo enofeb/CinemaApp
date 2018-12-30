@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.example.enes.cinemaapp.data.DataManager;
+import com.example.enes.cinemaapp.data.DataManagerImp;
 import com.example.enes.cinemaapp.di.DaggerApp;
 import com.example.enes.cinemaapp.movie.contract.MovieListContract;
 import com.example.enes.cinemaapp.movie.presenter.MoviePresenter;
@@ -15,6 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
+import io.reactivex.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 
 public class MainActivity extends BaseActivity implements MovieListContract.MovieView {
 
@@ -32,13 +39,17 @@ public class MainActivity extends BaseActivity implements MovieListContract.Movi
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout mSwipeLayout;
 
     @Inject
+    DataManagerImp dataManagerImp;
+
     MoviePresenter presenter;
 
     @CallSuper
-    protected void onCreate(Bundle savedInstanceState) {
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ((DaggerApp)getApplication()).getAppComponent().inject(this);
+
+        presenter=new MoviePresenter(dataManagerImp, Schedulers.io(),AndroidSchedulers.mainThread());
 
         presenter.attachView(this);
 
