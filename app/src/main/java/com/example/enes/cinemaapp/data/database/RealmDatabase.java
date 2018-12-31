@@ -3,10 +3,17 @@ package com.example.enes.cinemaapp.data.database;
 import android.content.Context;
 import com.example.enes.cinemaapp.data.model.Movie;
 import java.util.List;
+import java.util.concurrent.Callable;
+
+
 import javax.inject.Singleton;
 
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.realm.RealmResults;
-import rx.Observable;
+
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -49,10 +56,7 @@ public class RealmDatabase implements IDatabase {
     }
 
     @Override
-    public Observable<Movie> fetchMoviesObservable() {
-        return Observable.from(fetchMovies());
-    }
-
+    public Observable<Movie> fetchMoviesObservable() { return Observable.fromIterable(fetchMovies()); }
 
     @Override
     public void clearMovies() {
@@ -62,5 +66,16 @@ public class RealmDatabase implements IDatabase {
             result.deleteAllFromRealm();
         });
         realm.close();
+    }
+
+    @Override
+    public Maybe<Movie> getMovie(long movieId) {
+        final Realm realm=Realm.getDefaultInstance();
+       return Maybe.fromCallable(new Callable<Movie>() {
+            @Override
+            public Movie call() {
+                return  realm.where(Movie.class).equalTo("id",movieId).findFirst();
+            }
+        });
     }
 }

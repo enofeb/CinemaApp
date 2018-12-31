@@ -1,7 +1,10 @@
 package com.example.enes.cinemaapp.data.database;
 
 import com.example.enes.cinemaapp.data.model.Movie;
-import rx.Observable;
+
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import java.util.List;
 
 public interface IDatabase {
@@ -13,4 +16,6 @@ public interface IDatabase {
     Observable<Movie> fetchMoviesObservable();
 
     void clearMovies();
+
+    Maybe<Movie> getMovie(long movieId);
 }

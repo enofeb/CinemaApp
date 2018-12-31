@@ -6,12 +6,14 @@ import com.example.enes.cinemaapp.data.DataManager;
 import com.example.enes.cinemaapp.data.model.Movie;
 import com.example.enes.cinemaapp.movie.contract.MovieListContract;
 import com.example.enes.cinemaapp.service.Service;
+
+import org.reactivestreams.Subscriber;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Scheduler;
-import rx.Subscriber;
+import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -53,25 +55,8 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
     @Override
     public void getMovieList(final MovieListContract.MoviePresenter movieListContract,int pageNo) {
 
-        addSubscription(mDataManager.getDatasFromLocal().subscribeOn(ioScheduler)
-                .observeOn(mMainScheduler)
-                .subscribe(new Subscriber<List<Movie>>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<Movie> movieList) {
-                      movieListContract.onGetData(movieList);
-                    }
-                })
-        );
+        mCompositeDisposable.add(mDataManager.getDatasFromLocal().subscribeOn(ioScheduler)
+                .observeOn(mMainScheduler).subscribe(movieList -> movieListContract.onGetData(movieList)));
 
       /*  mCompositeDisposable.add( mService.getPopularMovies(pageNo).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

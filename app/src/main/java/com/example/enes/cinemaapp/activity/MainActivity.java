@@ -19,8 +19,8 @@ import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
 import io.reactivex.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends BaseActivity implements MovieListContract.MovieView {
