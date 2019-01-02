@@ -55,7 +55,7 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
     @Override
     public void getMovieList(final MovieListContract.MoviePresenter movieListContract,int pageNo) {
 
-        mCompositeDisposable.add(mDataManager.getDatasFromLocal().subscribeOn(ioScheduler)
+        mCompositeDisposable.add(mDataManager.getMovies(null).subscribeOn(ioScheduler)
                 .observeOn(mMainScheduler).subscribe(movieList -> movieListContract.onGetData(movieList)));
 
       /*  mCompositeDisposable.add( mService.getPopularMovies(pageNo).subscribeOn(Schedulers.io())

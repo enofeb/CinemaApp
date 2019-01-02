@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity implements MovieListContract.Movi
 
         ((DaggerApp)getApplication()).getAppComponent().inject(this);
 
-        presenter=new MoviePresenter(dataManagerImp, Schedulers.io(),AndroidSchedulers.mainThread());
+        presenter=new MoviePresenter(dataManagerImp,AndroidSchedulers.mainThread(),Schedulers.io());
 
         presenter.attachView(this);
 

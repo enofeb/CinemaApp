@@ -54,11 +54,8 @@ public class Movie extends RealmObject  implements Parcelable {
         @SerializedName("backdrop_path")
         private String backdropPath;
 
-
         @SerializedName("credits")
-        //private RealmList<Cast> castGetting;
         private CastGetting castGetting;
-        //RealmResults<CastGetting> castGettings;
 
         public Movie(){}
 
@@ -265,5 +262,27 @@ public class Movie extends RealmObject  implements Parcelable {
         movie.setOriginalLanguage(realMovie.getOriginalLanguage());
         movie.setOriginalTitle(realMovie.getTitle());
         movie.setBackdropPath(realMovie.getBackdropPath());
+        //movie.setCredits(realMovie.getCasting());
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "realId='" + realId + '\'' +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", overView='" + overView + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", voteCount=" + voteCount +
+                ", imagePath='" + imagePath + '\'' +
+                ", adult=" + adult +
+                ", video=" + video +
+                ", voteAverage=" + voteAverage +
+                ", popularity=" + popularity +
+                ", originalLanguage='" + originalLanguage + '\'' +
+                ", originalTitle='" + originalTitle + '\'' +
+                ", backdropPath='" + backdropPath + '\'' +
+                ", castGetting=" + castGetting +
+                '}';
     }
 }

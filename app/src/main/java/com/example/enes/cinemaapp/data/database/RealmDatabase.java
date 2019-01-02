@@ -1,6 +1,8 @@
 package com.example.enes.cinemaapp.data.database;
 
 import android.content.Context;
+
+import com.example.enes.cinemaapp.data.model.CastGetting;
 import com.example.enes.cinemaapp.data.model.Movie;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -38,11 +40,28 @@ public class RealmDatabase implements IDatabase {
     public void saveMovie(Movie movie) {
         final Realm realm=Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
+            Movie movieSearch=realm.where(Movie.class).equalTo("id",movie.getId()).findFirst();
+            if(movieSearch!=null){
+                movie.fetchMovie(movieSearch,movie);
+            }else {
+                movieSearch=realm.createObject(Movie.class,movie.getRealId());
+            }
+            movie.fetchMovie(movieSearch,movie);
+            realm1.insertOrUpdate(movieSearch);
+        });
+        realm.close();
+    }
 
-            final Movie realMovie=realm.createObject(Movie.class,movie.getRealId());
-            movie.fetchMovie(realMovie,movie);
-            realm1.insertOrUpdate(realMovie);
-
+    @Override
+    public void updateMovie(Movie movie, CastGetting castGetting){
+        final  Realm realm=Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 -> {
+            Movie movieSearch=realm.where(Movie.class).equalTo("id",movie.getId()).findFirst();
+            if (movieSearch.getCasting()==null){
+                movie.setCredits(castGetting);
+                movie.fetchMovie(movie,movieSearch);
+            }
+            realm1.insertOrUpdate(movie);
         });
         realm.close();
     }
@@ -69,9 +88,9 @@ public class RealmDatabase implements IDatabase {
     }
 
     @Override
-    public Maybe<Movie> getMovie(long movieId) {
+    public Single<Movie> getMovie(long movieId) {
         final Realm realm=Realm.getDefaultInstance();
-       return Maybe.fromCallable(new Callable<Movie>() {
+       return Single.fromCallable(new Callable<Movie>() {
             @Override
             public Movie call() {
                 return  realm.where(Movie.class).equalTo("id",movieId).findFirst();

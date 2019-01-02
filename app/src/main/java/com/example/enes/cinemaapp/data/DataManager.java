@@ -18,6 +18,8 @@ public interface DataManager {
 
     Maybe<List<Movie>> getDatasFromLocal();
 
-    Maybe<Movie> getCast(long movieId, String credits);
+    Single<Movie> getCast(long movieId, String credits);
+
+
     //Observable<List<Cast>> getMovieCast(long movieId);
 }

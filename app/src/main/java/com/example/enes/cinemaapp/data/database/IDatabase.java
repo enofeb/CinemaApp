@@ -1,5 +1,6 @@
 package com.example.enes.cinemaapp.data.database;
 
+import com.example.enes.cinemaapp.data.model.CastGetting;
 import com.example.enes.cinemaapp.data.model.Movie;
 
 import io.reactivex.Maybe;
@@ -11,11 +12,13 @@ public interface IDatabase {
 
     void saveMovie(Movie movie);
 
+    void updateMovie(Movie movie, CastGetting castGetting);
+
     List<Movie> fetchMovies();
 
     Observable<Movie> fetchMoviesObservable();
 
     void clearMovies();
 
-    Maybe<Movie> getMovie(long movieId);
+    Single<Movie> getMovie(long movieId);
 }

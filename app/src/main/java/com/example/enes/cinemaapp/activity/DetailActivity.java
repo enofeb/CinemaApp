@@ -47,7 +47,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.CastV
 
         ((DaggerApp)getApplication()).getAppComponent().inject(this);
 
-        mDetailPresenter=new DetailPresenter(dataManagerImp,Schedulers.io(),AndroidSchedulers.mainThread());
+        mDetailPresenter=new DetailPresenter(dataManagerImp,AndroidSchedulers.mainThread(),Schedulers.io());
 
         mDetailPresenter.attachView(this);
         mDetailPresenter.requestMovieData(mMovie.getId());

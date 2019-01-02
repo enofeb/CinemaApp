@@ -3,6 +3,7 @@ package com.example.enes.cinemaapp.movie.presenter;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.enes.cinemaapp.activity.DetailActivity;
 import com.example.enes.cinemaapp.data.DataManager;
 import com.example.enes.cinemaapp.data.model.Movie;
 import com.example.enes.cinemaapp.movie.contract.DetailContract;
@@ -46,10 +47,10 @@ public class DetailPresenter extends BasePresenter<DetailContract.CastView> impl
     @Override
     public void getDetailList(final DetailContract.CastPresenter castPresenter, int movieId) {
 
-        mCompositeDisposable.add(mDataManager.getCast(movieId,CREDITS).subscribeOn(mioScheduler)
+     mCompositeDisposable.add(mDataManager.getCast(movieId,CREDITS).subscribeOn(mioScheduler)
                         .observeOn(mMainScheduler)
                         .subscribe(movie -> castPresenter.onGetCastData(movie)
-                        ,error-> Log.e(TAG,"getDetailList"+error.getMessage())));
+                        ,error-> Log.e("DP","getDetailList"+error.getMessage())));
 
 
       /*  mCompositeDisposable.add( mService.getMovieCredits(movieId,CREDITS).subscribeOn(Schedulers.io())

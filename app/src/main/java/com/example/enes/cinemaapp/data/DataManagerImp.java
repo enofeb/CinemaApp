@@ -2,6 +2,7 @@ package com.example.enes.cinemaapp.data;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.example.enes.cinemaapp.data.database.IDatabase;
 import com.example.enes.cinemaapp.data.model.Cast;
@@ -47,9 +48,11 @@ public class DataManagerImp implements DataManager {
 
         Observable<Movie> movieObservable=mService.getPopularMovies(page)
                 .subscribeOn(Schedulers.io())
-                .doOnNext(movieMovieGetting -> clearMovies(movieMovieGetting))
+                .doOnSuccess(movieMovieGetting -> clearMovies(movieMovieGetting))
                 .map(movieMovieGetting -> movieMovieGetting.getResults())
+                .toObservable()
                 .flatMap(movieList -> Observable.fromIterable(movieList))
+                .doOnNext(movie -> Log.i("DataManager",movie.toString()))
                 .doOnNext(movie -> {
                     String realId=UUID.randomUUID().toString();
                     movie.setRealId(realId);
@@ -68,7 +71,7 @@ public class DataManagerImp implements DataManager {
     }
 
     @Override
-    public Maybe<Movie> getCast(long movieId, String credits) {
+    public Single<Movie> getCast(long movieId, String credits) {
 
        /* Observable<Movie> castObservable= mService.getMovieCredits(movieId,credits)
                 .subscribeOn(Schedulers.io())
@@ -76,7 +79,8 @@ public class DataManagerImp implements DataManager {
                 .flatMap(movieList -> Observable.fromIterable(movieList));
         return castObservable.firstElement();*/
 
-       return mIDatabase.getMovie(movieId);
+       return mIDatabase.getMovie(movieId)
+               .flatMap(movie -> mService.getMovieCredits(movieId,credits));
     }
 
 
