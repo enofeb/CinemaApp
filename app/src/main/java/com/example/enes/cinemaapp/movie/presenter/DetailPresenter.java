@@ -1,26 +1,14 @@
 package com.example.enes.cinemaapp.movie.presenter;
-
 import android.support.annotation.NonNull;
 import android.util.Log;
-
-import com.example.enes.cinemaapp.activity.DetailActivity;
 import com.example.enes.cinemaapp.data.DataManager;
 import com.example.enes.cinemaapp.data.model.Movie;
 import com.example.enes.cinemaapp.movie.contract.DetailContract;
-import com.example.enes.cinemaapp.service.Service;
-
-import org.reactivestreams.Subscriber;
-
-import javax.inject.Inject;
 import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-
-import static com.example.enes.cinemaapp.utils.Constants.CREDITS;
 
 public class DetailPresenter extends BasePresenter<DetailContract.CastView> implements DetailContract.CastPresenter {
     public static final String TAG="Detail Activity";
+
     @NonNull
     private final DataManager mDataManager;
 
@@ -33,7 +21,6 @@ public class DetailPresenter extends BasePresenter<DetailContract.CastView> impl
         this.mioScheduler = ioScheduler;
     }
 
-
     @Override
     public void requestMovieData(int movieId) {
         getDetailList(this,movieId);
@@ -45,16 +32,12 @@ public class DetailPresenter extends BasePresenter<DetailContract.CastView> impl
     }
 
     @Override
-    public void getDetailList(final DetailContract.CastPresenter castPresenter, int movieId) {
+    public void getDetailList(final DetailContract.CastPresenter castPresenter, Integer movieId) {
 
-     mCompositeDisposable.add(mDataManager.getCast(movieId,CREDITS).subscribeOn(mioScheduler)
+     mCompositeDisposable.add(mDataManager.getCastFromLocal(movieId).subscribeOn(mioScheduler)
                         .observeOn(mMainScheduler)
                         .subscribe(movie -> castPresenter.onGetCastData(movie)
                         ,error-> Log.e("DP","getDetailList"+error.getMessage())));
 
-
-      /*  mCompositeDisposable.add( mService.getMovieCredits(movieId,CREDITS).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(movie -> castPresenter.onGetCastData(movie)));*/
     }
 }

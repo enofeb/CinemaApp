@@ -262,7 +262,7 @@ public class Movie extends RealmObject  implements Parcelable {
         movie.setOriginalLanguage(realMovie.getOriginalLanguage());
         movie.setOriginalTitle(realMovie.getTitle());
         movie.setBackdropPath(realMovie.getBackdropPath());
-        //movie.setCredits(realMovie.getCasting());
+        movie.setCredits(realMovie.getCasting());
     }
 
     @Override

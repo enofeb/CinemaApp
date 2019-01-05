@@ -7,7 +7,7 @@ import com.example.enes.cinemaapp.movie.MvpView;
 public interface DetailContract {
 
     interface CastPresenter extends MvpPresenter<CastView> {
-        void getDetailList(DetailContract.CastPresenter castPresenter, int movieId);
+        void getDetailList(DetailContract.CastPresenter castPresenter, Integer movieId);
         void requestMovieData(int movieId);
         void onGetCastData(Movie movie);
     }

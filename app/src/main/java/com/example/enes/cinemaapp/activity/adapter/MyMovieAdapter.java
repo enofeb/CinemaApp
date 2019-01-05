@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import static com.example.enes.cinemaapp.utils.Constants.DETAIL_VIEW;
+import static com.example.enes.cinemaapp.utils.Constants.MOVIE_URL;
 
 public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHolder>  {
 
@@ -44,7 +45,7 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
         holder.userVote.setText(vote);
 
         Glide.with(holder.image.getContext())
-                .load(movie.getImagePath()).into(holder.image);
+                .load(MOVIE_URL+movie.getImagePath()).into(holder.image);
 
 
         //String imgUrl=mMovieList.get(position).getImagePath().replace("image.tmdb.org","10.0.2.2");

@@ -1,27 +1,19 @@
 package com.example.enes.cinemaapp.data;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-
 import com.example.enes.cinemaapp.data.database.IDatabase;
-import com.example.enes.cinemaapp.data.model.Cast;
-import com.example.enes.cinemaapp.data.model.CastGetting;
 import com.example.enes.cinemaapp.data.model.Movie;
 import com.example.enes.cinemaapp.data.model.MovieGetting;
 import com.example.enes.cinemaapp.service.Service;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-
 import javax.inject.Singleton;
-
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
-
+import static com.example.enes.cinemaapp.utils.Constants.CREDITS;
 
 @Singleton
 public class DataManagerImp implements DataManager {
@@ -34,14 +26,10 @@ public class DataManagerImp implements DataManager {
     @NonNull
     private final IDatabase mIDatabase;
 
-    private final HashMap<Long,List<Movie>> castCache;
-
     public DataManagerImp(@NonNull Service mService, @NonNull IDatabase mIDatabase) {
         this.mService = mService;
         this.mIDatabase = mIDatabase;
-        this.castCache=new HashMap<>();
     }
-
 
     @Override
     public Single<List<Movie>> getMovies(@Nullable Integer page) {
@@ -57,34 +45,35 @@ public class DataManagerImp implements DataManager {
                     String realId=UUID.randomUUID().toString();
                     movie.setRealId(realId);
                     mIDatabase.saveMovie(movie);
+
                 });
 
         return movieObservable.toList();
     }
 
+    @Override
+    public Single<Movie> getCast(@Nullable Integer movieId, @Nullable String credits) {
+
+        Single<Movie> movieObservable=mService.getMovieCredits(movieId,CREDITS)
+                            .subscribeOn(Schedulers.io())
+                            .doOnSuccess(movie -> mIDatabase.updateMovie(movie))
+                            .doOnSuccess(movie -> Log.i("CASTING",movie.toString()));
+        return movieObservable;
+    }
+
 
     @Override
-    public Maybe<List<Movie>> getDatasFromLocal() {
+    public Maybe<List<Movie>> getMoviesFromLocal() {
         //Kaydolan veriler ve serviceden gelen veriler kaydedlip birleştirilyr
         return Single.concat(mIDatabase.fetchMoviesObservable().toList(),getMovies(null))
                 .filter(movieList -> movieList!=null&&movieList.size()>0).firstElement();
     }
 
     @Override
-    public Single<Movie> getCast(long movieId, String credits) {
-
-       /* Observable<Movie> castObservable= mService.getMovieCredits(movieId,credits)
-                .subscribeOn(Schedulers.io())
-                .map(movieMovieGetting -> movieMovieGetting.getResults())
-                .flatMap(movieList -> Observable.fromIterable(movieList));
-        return castObservable.firstElement();*/
-
-       return mIDatabase.getMovie(movieId)
-               .flatMap(movie -> mService.getMovieCredits(movieId,credits));
+   public Maybe<Movie> getCastFromLocal(Integer movieId){
+        return Single.concat(mIDatabase.fetchCastSingle(movieId),getCast(movieId,"credits"))
+                .filter(movie -> movie.getCasting()!=null).firstElement();
     }
-
-
-    public HashMap<Long,List<Movie>> getCastCache(){return castCache;}
 
     private void clearMovies(MovieGetting<Movie> movieDiscoverResponse) {
         if (movieDiscoverResponse.getPage() == 1) {

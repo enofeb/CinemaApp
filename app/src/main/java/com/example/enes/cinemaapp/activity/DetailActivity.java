@@ -22,6 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 
 
 import static com.example.enes.cinemaapp.utils.Constants.DETAIL_VIEW;
+import static com.example.enes.cinemaapp.utils.Constants.MOVIE_URL;
 
 public class DetailActivity extends BaseActivity implements DetailContract.CastView {
 
@@ -64,7 +65,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.CastV
 
         if(getIntent().hasExtra(DETAIL_VIEW)){
             mMovie=getIntent().getParcelableExtra(DETAIL_VIEW);
-            Glide.with(this).load(mMovie.getImagePath()).into(mIvMovie);
+            Glide.with(this).load(MOVIE_URL+mMovie.getImagePath()).into(mIvMovie);
             mIvName.setText(mMovie.getTitle());
             mIvOverview.setText(mMovie.getOverView());
             mIvVoteAvg.setText(mMovie.getVoteAverage().toString());
