@@ -7,7 +7,6 @@ import com.example.enes.cinemaapp.data.model.Movie;
 import com.example.enes.cinemaapp.data.model.MovieGetting;
 import com.example.enes.cinemaapp.service.Service;
 import java.util.List;
-import java.util.UUID;
 import javax.inject.Singleton;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -42,8 +41,7 @@ public class DataManagerImp implements DataManager {
                 .flatMap(movieList -> Observable.fromIterable(movieList))
                 .doOnNext(movie -> Log.i("DataManager",movie.toString()))
                 .doOnNext(movie -> {
-                    String realId=UUID.randomUUID().toString();
-                    movie.setRealId(realId);
+                    movie.setId(movie.getId());
                     mIDatabase.saveMovie(movie);
 
                 });

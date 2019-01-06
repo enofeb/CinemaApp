@@ -4,6 +4,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
+import dagger.Provides;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
@@ -12,9 +13,6 @@ import io.realm.annotations.PrimaryKey;
 public class Movie extends RealmObject  implements Parcelable {
 
         @PrimaryKey
-        @SerializedName("realm _id")
-        private String realId;
-
         @SerializedName("id")
         private Integer id;
 
@@ -76,14 +74,6 @@ public class Movie extends RealmObject  implements Parcelable {
         this.originalLanguage = originalLanguage;
         this.originalTitle = originalTitle;
         this.backdropPath = backdropPath;
-    }
-
-    public String getRealId() {
-        return realId;
-    }
-
-    public void setRealId(String realId) {
-        this.realId = realId;
     }
 
     public Boolean getAdult() {
@@ -249,7 +239,6 @@ public class Movie extends RealmObject  implements Parcelable {
     };
 
     public void fetchMovie(Movie movie,Movie realMovie){
-        movie.setId(realMovie.getId());
         movie.setTitle(realMovie.getTitle());
         movie.setOverView(realMovie.getOverView());
         movie.setReleaseDate(realMovie.getReleaseDate());
@@ -268,7 +257,6 @@ public class Movie extends RealmObject  implements Parcelable {
     @Override
     public String toString() {
         return "Movie{" +
-                "realId='" + realId + '\'' +
                 ", id=" + id +
                 ", title='" + title + '\'' +
                 ", overView='" + overView + '\'' +

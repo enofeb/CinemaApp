@@ -35,7 +35,7 @@ public class RealmDatabase implements IDatabase {
             if(movieSearch!=null){
                 movie.fetchMovie(movieSearch,movie);
             }else {
-                movieSearch=realm.createObject(Movie.class,movie.getRealId());
+                movieSearch=realm.createObject(Movie.class,movie.getId());
             }
             movie.fetchMovie(movieSearch,movie);
             realm1.insertOrUpdate(movieSearch);
@@ -48,7 +48,7 @@ public class RealmDatabase implements IDatabase {
         final  Realm realm=Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
             Movie movieSearch=realm.where(Movie.class).equalTo("id",movie.getId()).findFirst();
-            movie.setRealId(movieSearch.getRealId());
+           movie.setId(movieSearch.getId());
             realm1.insertOrUpdate(movie);
         });
         realm.close();
