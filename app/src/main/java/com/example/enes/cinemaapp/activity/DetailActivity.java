@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.enes.cinemaapp.R;
-import com.example.enes.cinemaapp.di.DaggerApp;
+import com.example.enes.cinemaapp.DaggerApp;
 import com.example.enes.cinemaapp.movie.contract.DetailContract;
 import com.example.enes.cinemaapp.movie.presenter.DetailPresenter;
 import java.util.ArrayList;
@@ -19,8 +19,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
-
 import static com.example.enes.cinemaapp.utils.Constants.DETAIL_VIEW;
 import static com.example.enes.cinemaapp.utils.Constants.MOVIE_URL;
 

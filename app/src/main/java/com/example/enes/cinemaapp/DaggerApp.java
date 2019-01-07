@@ -1,5 +1,10 @@
-package com.example.enes.cinemaapp.di;
+package com.example.enes.cinemaapp;
 import android.app.Application;
+
+import com.example.enes.cinemaapp.di.AppComponent;
+import com.example.enes.cinemaapp.di.DaggerAppComponent;
+import com.example.enes.cinemaapp.di.PresenterModule;
+import com.example.enes.cinemaapp.di.ServiceModule;
 
 public class DaggerApp extends Application {
 

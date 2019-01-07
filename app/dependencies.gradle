@@ -1,0 +1,74 @@
+ext{
+
+    def RxAndroidVersion='2.1.0'
+    def RxBindingVersion='2.2.0'
+    def RxJavaVersion='2.2.2'
+
+    def RetrofitVersion = '2.4.0'
+    def OkHttpVersion = '3.12.0'
+    def GlideVersion='4.8.0'
+
+    def DaggerVersion='2.15'
+
+    def ButterKnifeVersion='8.7.0'
+    def ButterKnifeCompilerVersion='9.0.0-rc2'
+
+    def AndroidDesignVersion='27.1.1'
+    def AndroidConstraintLayoutVersion='1.1.3'
+    def AndroidLifeCycleVersion='1.1.1'
+    def AndroidTestRunnerVersion='1.0.2'
+    def AndroidTestEspressoVersion='3.0.2'
+
+    def JUnitVersion='4.12'
+
+
+    rxJavaDependencies = [
+            rxJava   : "io.reactivex.rxjava2:rxjava:${RxJavaVersion}",
+            rxBinding : "com.jakewharton.rxbinding2:rxbinding:${RxBindingVersion}",
+            rxAndroid: "io.reactivex.rxjava2:rxandroid:${RxAndroidVersion}"
+    ]
+
+    networkDependencies = [
+            retrofit             : "com.squareup.retrofit2:retrofit:${RetrofitVersion}",
+            retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:${RetrofitVersion}",
+            retrofitRxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava2:${RetrofitVersion}",
+            okHttp3              : "com.squareup.okhttp3:okhttp:${OkHttpVersion}",
+            okHttp3Logging       : "com.squareup.okhttp3:logging-interceptor:${OkHttpVersion}",
+            glide                : "com.github.bumptech.glide:glide:${GlideVersion}"
+    ]
+
+    daggerDependencies = [
+            dagger             : "com.google.dagger:dagger:${DaggerVersion}",
+            daggerAndroid      : "com.google.dagger:dagger-android-support:${DaggerVersion}",
+    ]
+
+    butterknifeDependencies = [
+            butterKnife             : "com.jakewharton:butterknife:${ButterKnifeVersion}",
+            butterKnifeCompiler     : "com.jakewharton:butterknife-compiler:${ButterKnifeCompilerVersion}"
+    ]
+
+    androidDesignDependencies = [
+            androidAppCompat         : "com.android.support:appcompat-v7:${AndroidDesignVersion}",
+            androidDesign            : "com.android.support:design:${AndroidDesignVersion}",
+            androidRecyclerview      : "com.android.support:recyclerview-v7:${AndroidDesignVersion}",
+            androidCardView          : "com.android.support:cardview-v7:${AndroidDesignVersion}",
+            androidConstraintLayout  : "com.android.support.constraint:constraint-layout:${AndroidConstraintLayoutVersion}"
+    ]
+
+    androidLifeCycleDependencies=[
+            androidLifeCycleExtension : "android.arch.lifecycle:extensions:${AndroidLifeCycleVersion}",
+            androidLifeCycleViewModel : "android.arch.lifecycle:viewmodel:${AndroidLifeCycleVersion}"
+    ]
+
+    androidTestDependencies=[
+            androidTestRunner   : "com.android.support.test:runner:${AndroidTestRunnerVersion}",
+            androidTestEspresso : "com.android.support.test.espresso:espresso-core:${AndroidTestEspressoVersion}",
+            androidJUnit        : "junit:junit:${JUnitVersion}"
+    ]
+
+    androidAnnotationProcessor=[
+            daggerCompiler     : "com.google.dagger:dagger-compiler:${DaggerVersion}",
+            butterKnifeCompiler     : "com.jakewharton:butterknife-compiler:${ButterKnifeCompilerVersion}"
+    ]
+
+}

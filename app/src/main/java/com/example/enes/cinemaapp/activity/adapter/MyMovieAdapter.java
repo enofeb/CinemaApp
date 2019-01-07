@@ -46,10 +46,6 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
 
         Glide.with(holder.image.getContext())
                 .load(MOVIE_URL+movie.getImagePath()).into(holder.image);
-
-
-        //String imgUrl=mMovieList.get(position).getImagePath().replace("image.tmdb.org","10.0.2.2");
-        //Glide.with(mContext).load(imgUrl).into(holder.image);
     }
 
     @Override
@@ -64,8 +60,6 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
         return null;
     }
 
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder  {
 
         @BindView(R.id.movie_title) TextView title;
@@ -77,11 +71,9 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
 
             ButterKnife.bind(this,view);
 
-
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     int pos=getAdapterPosition();
                         mSelectedMovie=mMovieList.get(pos);
                         Intent i=new Intent(mContext.getApplicationContext(),DetailActivity.class);

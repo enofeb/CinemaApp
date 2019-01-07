@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import com.example.enes.cinemaapp.data.DataManager;
 import com.example.enes.cinemaapp.data.DataManagerImp;
-import com.example.enes.cinemaapp.di.DaggerApp;
+import com.example.enes.cinemaapp.DaggerApp;
 import com.example.enes.cinemaapp.movie.contract.MovieListContract;
 import com.example.enes.cinemaapp.movie.presenter.MoviePresenter;
 import com.example.enes.cinemaapp.R;
@@ -18,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

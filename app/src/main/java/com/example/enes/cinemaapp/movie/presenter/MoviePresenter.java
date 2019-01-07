@@ -25,12 +25,6 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
     @NonNull
     private  final Scheduler mMainScheduler,ioScheduler;
 
-   // public Service mService;
-    //@Inject
-    //public MoviePresenter(Service service) {
-      //  this.mService=service;
-    //}
-
     public MoviePresenter(@NonNull DataManager dataManager, Scheduler mainScheduler, Scheduler ioScheduler) {
         this.mDataManager = dataManager;
         this.mMainScheduler = mainScheduler;
@@ -57,10 +51,6 @@ public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> i
 
         mCompositeDisposable.add(mDataManager.getMoviesFromLocal().subscribeOn(ioScheduler)
                 .observeOn(mMainScheduler).subscribe(movieList -> movieListContract.onGetData(movieList)));
-
-      /*  mCompositeDisposable.add( mService.getPopularMovies(pageNo).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(movie->movieListContract.onGetData(movie.getResults())));*/
 
     }
 }
