@@ -2,6 +2,7 @@ package com.example.enes.cinemaapp.activity.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,15 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.MyCastHolder> 
         holder.tvCharacter.setText(cast.getCharacter());
         holder.tvName.setText(cast.getName());
 
-        Glide.with(mContext).load(cast.getProfilePath()).into(holder.tvProfilePic);
+        Log.i("PROFILE PATHH",cast.getProfilePath());
+
+        if (cast.getProfilePath().equals("https://image.tmdb.org/t/p/w200/null")){
+            holder.tvProfilePic.setImageResource(R.drawable.nullphoto);
+        }
+        else
+        {
+            Glide.with(holder.tvProfilePic.getContext()).load(cast.getProfilePath()).into(holder.tvProfilePic);
+        }
     }
 
     @Override
