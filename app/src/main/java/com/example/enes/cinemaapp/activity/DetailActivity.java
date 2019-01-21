@@ -1,6 +1,5 @@
 package com.example.enes.cinemaapp.activity;
 import com.example.enes.cinemaapp.activity.adapter.CastAdapter;
-import com.example.enes.cinemaapp.data.DataManagerImp;
 import com.example.enes.cinemaapp.data.model.Cast;
 import com.example.enes.cinemaapp.data.model.Movie;
 import android.os.Bundle;
@@ -17,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import static com.example.enes.cinemaapp.utils.Constants.DETAIL_VIEW;
 import static com.example.enes.cinemaapp.utils.Constants.MOVIE_URL;
 
@@ -36,8 +33,6 @@ public class DetailActivity extends BaseActivity implements DetailContract.CastV
     @BindView(R.id.recycler_view_cast) RecyclerView mRecyclerView;
 
     @Inject
-    DataManagerImp dataManagerImp;
-
     DetailPresenter mDetailPresenter;
 
     @CallSuper
@@ -45,8 +40,6 @@ public class DetailActivity extends BaseActivity implements DetailContract.CastV
         super.onCreate(savedInstanceState);
 
         ((DaggerApp)getApplication()).getAppComponent().inject(this);
-
-        mDetailPresenter=new DetailPresenter(dataManagerImp,AndroidSchedulers.mainThread(),Schedulers.io());
 
         mDetailPresenter.attachView(this);
         mDetailPresenter.requestMovieData(mMovie.getId());

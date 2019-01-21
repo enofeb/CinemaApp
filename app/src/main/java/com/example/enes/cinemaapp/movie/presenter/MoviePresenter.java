@@ -1,30 +1,20 @@
 package com.example.enes.cinemaapp.movie.presenter;
-
 import android.support.annotation.NonNull;
-
 import com.example.enes.cinemaapp.data.DataManager;
 import com.example.enes.cinemaapp.data.model.Movie;
 import com.example.enes.cinemaapp.movie.contract.MovieListContract;
-import com.example.enes.cinemaapp.service.Service;
-
-import org.reactivestreams.Subscriber;
-
 import java.util.List;
-
 import javax.inject.Inject;
-
 import io.reactivex.Scheduler;
-import io.reactivex.schedulers.Schedulers;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class MoviePresenter extends BasePresenter<MovieListContract.MovieView> implements MovieListContract.MoviePresenter {
-
 
     @NonNull
     private final DataManager mDataManager;
     @NonNull
     private  final Scheduler mMainScheduler,ioScheduler;
 
+    @Inject
     public MoviePresenter(@NonNull DataManager dataManager, Scheduler mainScheduler, Scheduler ioScheduler) {
         this.mDataManager = dataManager;
         this.mMainScheduler = mainScheduler;

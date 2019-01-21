@@ -4,17 +4,17 @@ import android.util.Log;
 import com.example.enes.cinemaapp.data.DataManager;
 import com.example.enes.cinemaapp.data.model.Movie;
 import com.example.enes.cinemaapp.movie.contract.DetailContract;
+import javax.inject.Inject;
 import io.reactivex.Scheduler;
 
 public class DetailPresenter extends BasePresenter<DetailContract.CastView> implements DetailContract.CastPresenter {
-    public static final String TAG="Detail Activity";
 
     @NonNull
     private final DataManager mDataManager;
-
     @NonNull
     private  final Scheduler mMainScheduler,mioScheduler;
 
+    @Inject
     public DetailPresenter(@NonNull DataManager dataManager, @NonNull Scheduler mainScheduler, @NonNull Scheduler ioScheduler) {
         this.mDataManager = dataManager;
         this.mMainScheduler = mainScheduler;
