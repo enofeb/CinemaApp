@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CinemaApp</string>
+    <string name="title_activity_collappse">Collappse</string>
 </resources>

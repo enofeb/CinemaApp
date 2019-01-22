@@ -4,7 +4,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import com.example.enes.cinemaapp.data.database.IDatabase;
 import com.example.enes.cinemaapp.data.model.Movie;
-import com.example.enes.cinemaapp.data.model.MovieGetting;
 import com.example.enes.cinemaapp.service.Service;
 import java.util.List;
 import javax.inject.Singleton;
@@ -16,8 +15,6 @@ import static com.example.enes.cinemaapp.utils.Constants.CREDITS;
 
 @Singleton
 public class DataManagerImp implements DataManager {
-
-    private static final String TAG=DataManagerImp.class.getName();
 
     @NonNull
     private final   Service mService;
@@ -35,7 +32,6 @@ public class DataManagerImp implements DataManager {
 
         Observable<Movie> movieObservable=mService.getPopularMovies(page)
                 .subscribeOn(Schedulers.io())
-                .doOnSuccess(movieMovieGetting -> clearMovies(movieMovieGetting))
                 .map(movieMovieGetting -> movieMovieGetting.getResults())
                 .toObservable()
                 .flatMap(movieList -> Observable.fromIterable(movieList))
@@ -71,11 +67,5 @@ public class DataManagerImp implements DataManager {
    public Maybe<Movie> getCastFromLocal(Integer movieId){
         return Single.concat(mIDatabase.fetchCastSingle(movieId),getCast(movieId,"credits"))
                 .filter(movie -> movie.getCasting()!=null).firstElement();
-    }
-
-    private void clearMovies(MovieGetting<Movie> movieDiscoverResponse) {
-        if (movieDiscoverResponse.getPage() == 1) {
-            mIDatabase.clearMovies();
-        }
     }
 }

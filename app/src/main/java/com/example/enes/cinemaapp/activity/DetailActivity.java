@@ -1,13 +1,16 @@
 package com.example.enes.cinemaapp.activity;
+import com.bumptech.glide.Glide;
 import com.example.enes.cinemaapp.activity.adapter.CastAdapter;
 import com.example.enes.cinemaapp.data.model.Cast;
 import com.example.enes.cinemaapp.data.model.Movie;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
 import com.example.enes.cinemaapp.R;
 import com.example.enes.cinemaapp.DaggerApp;
 import com.example.enes.cinemaapp.movie.contract.DetailContract;
@@ -25,8 +28,9 @@ public class DetailActivity extends BaseActivity implements DetailContract.CastV
     private CastAdapter mCastAdapter;
     private List<Cast> mCastList;
 
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.movie_image) ImageView mIvMovie;
-    @BindView(R.id.movie_name) TextView mIvName;
     @BindView(R.id.movie_overview) TextView mIvOverview;
     @BindView(R.id.movie_release_date) TextView mIvReleaseDate;
     @BindView(R.id.movie_vote_average) TextView mIvVoteAvg;
@@ -54,22 +58,26 @@ public class DetailActivity extends BaseActivity implements DetailContract.CastV
     @Override
     protected void initView() {
 
+        setSupportActionBar(toolbar);
+        collapsingToolbarLayout.setExpandedTitleColor(Color.YELLOW);
+        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.YELLOW);
+
         if(getIntent().hasExtra(DETAIL_VIEW)){
             mMovie=getIntent().getParcelableExtra(DETAIL_VIEW);
             Glide.with(this).load(MOVIE_URL+mMovie.getImagePath()).into(mIvMovie);
-            mIvName.setText(mMovie.getTitle());
+
+            collapsingToolbarLayout.setTitle(mMovie.getTitle());
             mIvOverview.setText(mMovie.getOverView());
             mIvVoteAvg.setText(mMovie.getVoteAverage().toString());
             mIvReleaseDate.setText(mMovie.getReleaseDate());
             mCastList=new ArrayList<>();
             mCastAdapter=new CastAdapter(this,mCastList);
             mRecyclerView.setAdapter(mCastAdapter);
-
-
         }
     }
     @Override
     protected int getContentView() {
         return R.layout.movie_content_detail_layout;
     }
+
 }
