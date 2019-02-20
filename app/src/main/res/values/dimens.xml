@@ -13,4 +13,5 @@
     <dimen name="cast_width">120dp</dimen>
     <dimen name="cast_heigh">150dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="detail_padding_left">13dp</dimen>
 </resources>

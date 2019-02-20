@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
+        android:paddingLeft="3dp"
         android:paddingTop="@dimen/card_content_padding"
         android:textColor="@color/colorYellow"
         android:textSize="@dimen/overview_text_size"

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.enes.cinemaapp.R;
@@ -37,8 +38,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.MyCastHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyCastHolder holder, int position) {
         Cast cast=mCastList.get(position);
-
-        holder.tvCharacter.setText(cast.getCharacter());
+       // holder.tvCharacter.setText(cast.getCharacter());
         holder.tvName.setText(cast.getName());
 
         Log.i("PROFILE PATHH",cast.getProfilePath());

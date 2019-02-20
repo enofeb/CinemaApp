@@ -17,7 +17,7 @@ import static com.example.enes.cinemaapp.utils.Constants.CREDITS;
 public class DataManagerImp implements DataManager {
 
     @NonNull
-    private final   Service mService;
+    private final Service mService;
 
     @NonNull
     private final IDatabase mIDatabase;
@@ -64,8 +64,10 @@ public class DataManagerImp implements DataManager {
     }
 
     @Override
-   public Maybe<Movie> getCastFromLocal(Integer movieId){
+    public Maybe<Movie> getCastFromLocal(Integer movieId){
         return Single.concat(mIDatabase.fetchCastSingle(movieId),getCast(movieId,"credits"))
                 .filter(movie -> movie.getCasting()!=null).firstElement();
     }
+
+
 }

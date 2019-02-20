@@ -13,7 +13,7 @@ ext{
     def ButterKnifeVersion='8.7.0'
     def ButterKnifeCompilerVersion='9.0.0-rc2'
 
-    def AndroidDesignVersion='27.1.1'
+    def AndroidDesignVersion='28.0.0-alpha3'
     def AndroidConstraintLayoutVersion='1.1.3'
     def AndroidLifeCycleVersion='1.1.1'
     def AndroidTestRunnerVersion='1.0.2'

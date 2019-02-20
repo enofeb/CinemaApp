@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.enes.cinemaapp.R;
@@ -43,6 +44,8 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
         holder.title.setText(mMovieList.get(position).getTitle());
         String vote=Double.toString(mMovieList.get(position).getVoteAverage());
         holder.userVote.setText(vote);
+        float starVote=(float)((mMovieList.get(position).getVoteAverage())/2.0);
+        holder.rbStarBar.setRating(starVote);
 
         Glide.with(holder.image.getContext())
                 .load(MOVIE_URL+movie.getImagePath()).into(holder.image);
@@ -65,6 +68,8 @@ public class MyMovieAdapter extends RecyclerView.Adapter<MyMovieAdapter.MyViewHo
         @BindView(R.id.movie_title) TextView title;
         @BindView(R.id.movie_rate) TextView userVote;
         @BindView(R.id.movie_image_2) ImageView image;
+        @BindView(R.id.movie_rate_star) RatingBar rbStarBar;
+
 
         MyViewHolder(View view){
             super(view);

@@ -48,6 +48,22 @@
                 android:text="Rate"
                 android:textColor="@color/colorYellow" />
 
+            <RatingBar
+                android:id="@+id/movie_rate_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:numStars="5"
+                android:outlineAmbientShadowColor="@color/colorYellow"
+                android:rating="2.5"
+                android:isIndicator="true"
+                android:stepSize="0.1"
+                android:paddingLeft="15dp"
+                android:layout_alignStart="@id/movie_rate"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="80dp"
+                />
+
 
         </RelativeLayout>
 

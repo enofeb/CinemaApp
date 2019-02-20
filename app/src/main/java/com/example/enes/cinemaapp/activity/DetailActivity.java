@@ -74,6 +74,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.CastV
             mCastAdapter=new CastAdapter(this,mCastList);
             mRecyclerView.setAdapter(mCastAdapter);
         }
+
+
     }
     @Override
     protected int getContentView() {
